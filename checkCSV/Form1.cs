@@ -14,11 +14,11 @@ namespace checkCSV
     {
         //defaults
         private string _defaultCSVdir;
-        private string _defaultWorkshopdir;
+        private string _defaultPDFdir;
 
         //active
         private string _csvFolderPath;
-        private string _workshopFolderPath;
+        private string _pdfFolderPath;
         private string _csvFilePath;
 
         List<string> _csvFiles = new List<string>();
@@ -33,19 +33,19 @@ namespace checkCSV
         //LOADING
         private void Form1_Load(object sender, EventArgs e)
         {
-            bool hasSettings = defaults.readDefaultDirectorys(out _csvFolderPath, out _workshopFolderPath);
+            bool hasSettings = defaults.readDefaultDirectorys(out _csvFolderPath, out _pdfFolderPath);
             txt_csv_dir.Text = _csvFolderPath;
-            txt_workshop_dir.Text = _workshopFolderPath;
+            txt_pdf_dir.Text = _pdfFolderPath;
 
             lbl_csv_dir.Text = "Directory: ";
-            lbl_workshop_dir.Text = "Directory: ";
+            lbl_pdf_dir.Text = "Directory: ";
 
             lbl_csv_file.Text = "";
 
             if (hasSettings)
             {
-                readCSVfolder();
-                readPDFfolder();
+                checkCSVdir();
+                checkPDFdir();
             }
         }
 
@@ -62,23 +62,16 @@ namespace checkCSV
             }
         }
 
-        private void btn_read_csv_Click(object sender, EventArgs e)
+        private void btn_check_csv_dir_Click(object sender, EventArgs e)
         {
-            readCSVfolder();
+            checkCSVdir();
         }
 
-        private void readCSVfolder()
+        private void checkCSVdir()
         {
-            try
-            {
-                lbl_csv_dir.Text = "Directory: " + _csvFolderPath;
-                _csvFiles = csvDirectoryImport.importCSVdir(_csvFolderPath);
-                update_csv_list();
-            }
-            catch
-            {
-                MessageBox.Show("Viga (1)");
-            }
+            lbl_csv_dir.Text = "Directory: " + _csvFolderPath;
+            _csvFiles = directoryImport.importCSVdir(_csvFolderPath);
+            update_csv_list();
         }
 
         private void update_csv_list()
@@ -88,40 +81,33 @@ namespace checkCSV
         }
 
 
-        //TAB 2 - WORKSHOP
-        private void txt_workshop_directory_TextChanged(object sender, EventArgs e)
+        //TAB 2 - PDF
+        private void txt_pdf_dir_TextChanged(object sender, EventArgs e)
         {
-            _workshopFolderPath = txt_workshop_dir.Text;
-            txt_default_workshop_dir.Text = _workshopFolderPath;
+            _pdfFolderPath = txt_pdf_dir.Text;
+            txt_default_pdf_dir.Text = _pdfFolderPath;
 
-            if (!_workshopFolderPath.EndsWith(@"\"))
+            if (!_pdfFolderPath.EndsWith(@"\"))
             {
-                _workshopFolderPath = _workshopFolderPath + @"\";
+                _pdfFolderPath = _pdfFolderPath + @"\";
             }
         }
 
-        private void btn_checkPDF_Click(object sender, EventArgs e)
+        private void btn_check_pdf_dir_Click(object sender, EventArgs e)
         {
-            readPDFfolder();
+            checkPDFdir();
         }
 
-        private void readPDFfolder()
+        private void checkPDFdir()
         {
-            try
-            {
-                lbl_workshop_dir.Text = "Directory: " + _workshopFolderPath;
-                _pdfFiles = workshopDirectoryImport.importPDF(_workshopFolderPath);
-                update_pdf_list();
-            }
-            catch
-            {
-                MessageBox.Show("Viga (2)");
-            }
+            lbl_pdf_dir.Text = "Directory: " + _pdfFolderPath;
+            _pdfFiles = directoryImport.importPDFdir(_pdfFolderPath);
+            update_pdf_list();
         }
 
         private void update_pdf_list()
         {
-            lib_workshop_dir.DataSource = _pdfFiles;
+            lib_pdf_dir.DataSource = _pdfFiles;
         }
 
 
@@ -131,14 +117,14 @@ namespace checkCSV
             _defaultCSVdir = txt_default_csv_dir.Text;
         }
 
-        private void txt_default_workshop_directory_TextChanged(object sender, EventArgs e)
+        private void txt_default_pdf_dir_TextChanged(object sender, EventArgs e)
         {
-            _defaultWorkshopdir = txt_default_workshop_dir.Text;
+            _defaultPDFdir = txt_default_pdf_dir.Text;
         }
 
         private void btn_save_defaults_Click(object sender, EventArgs e)
         {
-            defaults.writeDefaultDirectorys(_defaultCSVdir, _defaultWorkshopdir);
+            defaults.writeDefaultDirectorys(_defaultCSVdir, _defaultPDFdir);
         }
 
         private void lib_csv_files_SelectedIndexChanged(object sender, EventArgs e)
@@ -148,6 +134,43 @@ namespace checkCSV
                 _csvFilePath = _csvFolderPath + lib_csv_dir.SelectedItem + ".csv";
                 lbl_csv_file.Text = _csvFilePath;
             }
+        }
+
+        //global brushes with ordinary/selected colors
+        private SolidBrush reportsForegroundBrushSelected = new SolidBrush(Color.White);
+        private SolidBrush reportsForegroundBrush = new SolidBrush(Color.Black);
+        private SolidBrush reportsBackgroundBrushSelected = new SolidBrush(Color.FromKnownColor(KnownColor.Highlight));
+        private SolidBrush reportsBackgroundBrush1 = new SolidBrush(Color.White);
+        private SolidBrush reportsBackgroundBrush2 = new SolidBrush(Color.Gray);
+
+        //custom method to draw the items, don't forget to set DrawMode of the ListBox to OwnerDrawFixed
+        private void lbReports_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            bool selected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+
+            int index = e.Index;
+            if (index >= 0 && index < lib_csv_dir.Items.Count)
+            {
+                string text = lib_csv_dir.Items[index].ToString();
+                Graphics g = e.Graphics;
+
+                //background:
+                SolidBrush backgroundBrush;
+                if (selected)
+                    backgroundBrush = reportsBackgroundBrushSelected;
+                else if ((index % 2) == 0)
+                    backgroundBrush = reportsBackgroundBrush1;
+                else
+                    backgroundBrush = reportsBackgroundBrush2;
+                g.FillRectangle(backgroundBrush, e.Bounds);
+
+                //text:
+                SolidBrush foregroundBrush = (selected) ? reportsForegroundBrushSelected : reportsForegroundBrush;
+                g.DrawString(text, e.Font, foregroundBrush, lib_csv_dir.GetItemRectangle(index).Location);
+            }
+
+            e.DrawFocusRectangle();
         }
     }
 }
