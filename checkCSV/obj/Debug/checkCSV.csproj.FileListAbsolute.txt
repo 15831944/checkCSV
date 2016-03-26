@@ -1,0 +1,10 @@
+C:\Users\aleksandr.ess\Desktop\dotNet\checkCSV\checkCSV\bin\Debug\checkCSV.exe.config
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\bin\Debug\checkCSV.exe.config
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\bin\Debug\checkCSV.exe
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\bin\Debug\checkCSV.pdb
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.csprojResolveAssemblyReference.cache
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.Form1.resources
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.Properties.Resources.resources
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.csproj.GenerateResource.Cache
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.exe
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.pdb
