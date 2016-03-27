@@ -20,7 +20,7 @@ namespace checkCSV
             }
             catch (DirectoryNotFoundException)
             {
-                MessageBox.Show("Directory Not Found");
+                MessageBox.Show("CSV Directory Not Found");
             }
             catch
             {
@@ -39,7 +39,7 @@ namespace checkCSV
             }
             catch (DirectoryNotFoundException)
             {
-                MessageBox.Show("Directory Not Found");
+                MessageBox.Show("PDF Directory Not Found");
             }
             catch
             {

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="csvFileReader.cs" />
     <Compile Include="directoryImport.cs" />
     <Compile Include="defaults.cs" />
     <Compile Include="Form1.cs">

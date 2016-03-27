@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.lbl_csv_file = new System.Windows.Forms.Label();
             this.lbl_csv_dir = new System.Windows.Forms.Label();
@@ -40,13 +41,14 @@
             this.lib_pdf_dir = new System.Windows.Forms.ListBox();
             this.btn_checkPDF = new System.Windows.Forms.Button();
             this.txt_pdf_dir = new System.Windows.Forms.TextBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.btn_save_defaults = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lbl_default_csv_directory = new System.Windows.Forms.Label();
             this.txt_default_pdf_dir = new System.Windows.Forms.TextBox();
             this.txt_default_csv_dir = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txt_default_incast_class = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -55,9 +57,9 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -66,6 +68,16 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(484, 561);
             this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(476, 535);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Results";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage1
             // 
@@ -84,6 +96,8 @@
             // 
             // lbl_csv_file
             // 
+            this.lbl_csv_file.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_csv_file.AutoSize = true;
             this.lbl_csv_file.Location = new System.Drawing.Point(0, 517);
             this.lbl_csv_file.Name = "lbl_csv_file";
@@ -105,13 +119,11 @@
             this.lib_csv_dir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lib_csv_dir.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lib_csv_dir.FormattingEnabled = true;
             this.lib_csv_dir.Location = new System.Drawing.Point(3, 78);
             this.lib_csv_dir.Name = "lib_csv_dir";
             this.lib_csv_dir.Size = new System.Drawing.Size(467, 433);
             this.lib_csv_dir.TabIndex = 2;
-            this.lib_csv_dir.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbReports_DrawItem);
             this.lib_csv_dir.SelectedIndexChanged += new System.EventHandler(this.lib_csv_files_SelectedIndexChanged);
             // 
             // btn_check_csv_dir
@@ -161,6 +173,9 @@
             // 
             // lib_pdf_dir
             // 
+            this.lib_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lib_pdf_dir.FormattingEnabled = true;
             this.lib_pdf_dir.Location = new System.Drawing.Point(3, 78);
             this.lib_pdf_dir.Name = "lib_pdf_dir";
@@ -189,18 +204,10 @@
             this.txt_pdf_dir.Text = "<pdf directory>";
             this.txt_pdf_dir.TextChanged += new System.EventHandler(this.txt_pdf_dir_TextChanged);
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(476, 535);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.txt_default_incast_class);
+            this.tabPage4.Controls.Add(this.label2);
             this.tabPage4.Controls.Add(this.btn_save_defaults);
             this.tabPage4.Controls.Add(this.label1);
             this.tabPage4.Controls.Add(this.lbl_default_csv_directory);
@@ -216,7 +223,9 @@
             // 
             // btn_save_defaults
             // 
-            this.btn_save_defaults.Location = new System.Drawing.Point(3, 84);
+            this.btn_save_defaults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_save_defaults.Location = new System.Drawing.Point(3, 132);
             this.btn_save_defaults.Name = "btn_save_defaults";
             this.btn_save_defaults.Size = new System.Drawing.Size(467, 23);
             this.btn_save_defaults.TabIndex = 2;
@@ -227,7 +236,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 42);
+            this.label1.Location = new System.Drawing.Point(0, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(108, 13);
             this.label1.TabIndex = 1;
@@ -236,7 +245,7 @@
             // lbl_default_csv_directory
             // 
             this.lbl_default_csv_directory.AutoSize = true;
-            this.lbl_default_csv_directory.Location = new System.Drawing.Point(6, 3);
+            this.lbl_default_csv_directory.Location = new System.Drawing.Point(0, 3);
             this.lbl_default_csv_directory.Name = "lbl_default_csv_directory";
             this.lbl_default_csv_directory.Size = new System.Drawing.Size(108, 13);
             this.lbl_default_csv_directory.TabIndex = 1;
@@ -246,9 +255,9 @@
             // 
             this.txt_default_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_default_pdf_dir.Location = new System.Drawing.Point(0, 58);
+            this.txt_default_pdf_dir.Location = new System.Drawing.Point(3, 58);
             this.txt_default_pdf_dir.Name = "txt_default_pdf_dir";
-            this.txt_default_pdf_dir.Size = new System.Drawing.Size(470, 20);
+            this.txt_default_pdf_dir.Size = new System.Drawing.Size(467, 20);
             this.txt_default_pdf_dir.TabIndex = 0;
             this.txt_default_pdf_dir.TextChanged += new System.EventHandler(this.txt_default_pdf_dir_TextChanged);
             // 
@@ -256,11 +265,30 @@
             // 
             this.txt_default_csv_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_default_csv_dir.Location = new System.Drawing.Point(0, 19);
+            this.txt_default_csv_dir.Location = new System.Drawing.Point(3, 19);
             this.txt_default_csv_dir.Name = "txt_default_csv_dir";
-            this.txt_default_csv_dir.Size = new System.Drawing.Size(470, 20);
+            this.txt_default_csv_dir.Size = new System.Drawing.Size(467, 20);
             this.txt_default_csv_dir.TabIndex = 0;
             this.txt_default_csv_dir.TextChanged += new System.EventHandler(this.txt_default_csv_directory_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(0, 81);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(132, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "In-cast detail class number";
+            // 
+            // txt_default_incast_class
+            // 
+            this.txt_default_incast_class.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_default_incast_class.Location = new System.Drawing.Point(3, 97);
+            this.txt_default_incast_class.Name = "txt_default_incast_class";
+            this.txt_default_incast_class.Size = new System.Drawing.Size(467, 20);
+            this.txt_default_incast_class.TabIndex = 4;
+            this.txt_default_incast_class.TextChanged += new System.EventHandler(this.txt_default_incast_class_TextChanged);
             // 
             // Form1
             // 
@@ -303,6 +331,8 @@
         private System.Windows.Forms.Button btn_checkPDF;
         private System.Windows.Forms.ListBox lib_pdf_dir;
         private System.Windows.Forms.Label lbl_pdf_dir;
+        private System.Windows.Forms.TextBox txt_default_incast_class;
+        private System.Windows.Forms.Label label2;
     }
 }
 

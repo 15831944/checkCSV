@@ -11,32 +11,46 @@ namespace checkCSV
 {
     static class defaults
     {
-        public static bool readDefaultDirectorys(out string csv, out string workshop)
+        public static bool readDefaultDirectorys(out string csv, out string pdf, out string incastClass)
         {
             string fileName = @"checkCSV_settings.dat";
 
             if (File.Exists(fileName))
             {
-                string[] readText = File.ReadAllLines(fileName);
+                try
+                {
+                    string[] readText = File.ReadAllLines(fileName);
 
-                csv = readText[0];
-                workshop = readText[1];
+                    csv = readText[0];
+                    pdf = readText[1];
+                    incastClass = readText[2];
 
-                return true;
+                    return true;
+                }
+                catch
+                {
+                    csv = @"C:\Users\aleksandr.ess\Dropbox\CODE\UPB_csv\";
+                    pdf = @"C:\Users\aleksandr.ess\Dropbox\CODE\UPB_csv\";
+                    incastClass = "891";
+
+                    return false;
+                }
+
             }
             else
             {
                 csv = @"C:\Users\aleksandr.ess\Dropbox\CODE\UPB_csv\";
-                workshop = @"C:\Users\aleksandr.ess\Dropbox\CODE\UPB_csv\";
+                pdf = @"C:\Users\aleksandr.ess\Dropbox\CODE\UPB_csv\";
+                incastClass = "891";
 
                 return false;
             }
         }
 
-        public static void writeDefaultDirectorys(string csv, string workshop)
+        public static void writeDefaultDirectorys(string csv, string pdf, string incastClass)
         {
             string fileName = @"checkCSV_settings.dat";
-            string[] values = { csv, workshop};
+            string[] values = { csv, pdf, incastClass };
 
             if (File.Exists(fileName))
             {

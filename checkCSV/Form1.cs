@@ -15,11 +15,13 @@ namespace checkCSV
         //defaults
         private string _defaultCSVdir;
         private string _defaultPDFdir;
+        private string _defaultIncastClass;
 
         //active
         private string _csvFolderPath;
         private string _pdfFolderPath;
         private string _csvFilePath;
+        private string _incastClass;
 
         List<string> _csvFiles = new List<string>();
         List<string> _pdfFiles = new List<string>();
@@ -33,9 +35,10 @@ namespace checkCSV
         //LOADING
         private void Form1_Load(object sender, EventArgs e)
         {
-            bool hasSettings = defaults.readDefaultDirectorys(out _csvFolderPath, out _pdfFolderPath);
+            bool hasSettings = defaults.readDefaultDirectorys(out _csvFolderPath, out _pdfFolderPath, out _incastClass);
             txt_csv_dir.Text = _csvFolderPath;
             txt_pdf_dir.Text = _pdfFolderPath;
+            //txt_incastClass.Text = _incastClass;
 
             lbl_csv_dir.Text = "Directory: ";
             lbl_pdf_dir.Text = "Directory: ";
@@ -124,7 +127,7 @@ namespace checkCSV
 
         private void btn_save_defaults_Click(object sender, EventArgs e)
         {
-            defaults.writeDefaultDirectorys(_defaultCSVdir, _defaultPDFdir);
+            defaults.writeDefaultDirectorys(_defaultCSVdir, _defaultPDFdir, _defaultIncastClass);
         }
 
         private void lib_csv_files_SelectedIndexChanged(object sender, EventArgs e)
@@ -136,41 +139,9 @@ namespace checkCSV
             }
         }
 
-        //global brushes with ordinary/selected colors
-        private SolidBrush reportsForegroundBrushSelected = new SolidBrush(Color.White);
-        private SolidBrush reportsForegroundBrush = new SolidBrush(Color.Black);
-        private SolidBrush reportsBackgroundBrushSelected = new SolidBrush(Color.FromKnownColor(KnownColor.Highlight));
-        private SolidBrush reportsBackgroundBrush1 = new SolidBrush(Color.White);
-        private SolidBrush reportsBackgroundBrush2 = new SolidBrush(Color.Gray);
-
-        //custom method to draw the items, don't forget to set DrawMode of the ListBox to OwnerDrawFixed
-        private void lbReports_DrawItem(object sender, DrawItemEventArgs e)
+        private void txt_default_incast_class_TextChanged(object sender, EventArgs e)
         {
-            e.DrawBackground();
-            bool selected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
-
-            int index = e.Index;
-            if (index >= 0 && index < lib_csv_dir.Items.Count)
-            {
-                string text = lib_csv_dir.Items[index].ToString();
-                Graphics g = e.Graphics;
-
-                //background:
-                SolidBrush backgroundBrush;
-                if (selected)
-                    backgroundBrush = reportsBackgroundBrushSelected;
-                else if ((index % 2) == 0)
-                    backgroundBrush = reportsBackgroundBrush1;
-                else
-                    backgroundBrush = reportsBackgroundBrush2;
-                g.FillRectangle(backgroundBrush, e.Bounds);
-
-                //text:
-                SolidBrush foregroundBrush = (selected) ? reportsForegroundBrushSelected : reportsForegroundBrush;
-                g.DrawString(text, e.Font, foregroundBrush, lib_csv_dir.GetItemRectangle(index).Location);
-            }
-
-            e.DrawFocusRectangle();
+            _defaultIncastClass = txt_default_incast_class.Text;
         }
     }
 }
