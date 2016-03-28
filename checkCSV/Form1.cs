@@ -35,15 +35,14 @@ namespace checkCSV
         //LOADING
         private void Form1_Load(object sender, EventArgs e)
         {
-            bool hasSettings = defaults.readDefaultDirectorys(out _csvFolderPath, out _pdfFolderPath, out _incastClass);
+            bool hasSettings = defaultSettings.readDefaultDirectorys(out _csvFolderPath, out _pdfFolderPath, out _incastClass);
             txt_csv_dir.Text = _csvFolderPath;
             txt_pdf_dir.Text = _pdfFolderPath;
-            //txt_incastClass.Text = _incastClass;
+            txt_incastClass.Text = _incastClass;
 
             lbl_csv_dir.Text = "Directory: ";
             lbl_pdf_dir.Text = "Directory: ";
-
-            lbl_csv_file.Text = "";
+            lbl_csv_file.Text = "CSV: None";
 
             if (hasSettings)
             {
@@ -53,7 +52,13 @@ namespace checkCSV
         }
 
 
-        //TAB 1 - CSV
+        //TEXT
+        private void txt_incastClass_TextChanged(object sender, EventArgs e)
+        {
+            _incastClass = txt_incastClass.Text;
+            txt_default_incast_class.Text = _incastClass;
+        }
+
         private void txt_csv_dir_TextChanged(object sender, EventArgs e)
         {
             _csvFolderPath = txt_csv_dir.Text;
@@ -65,26 +70,6 @@ namespace checkCSV
             }
         }
 
-        private void btn_check_csv_dir_Click(object sender, EventArgs e)
-        {
-            checkCSVdir();
-        }
-
-        private void checkCSVdir()
-        {
-            lbl_csv_dir.Text = "Directory: " + _csvFolderPath;
-            _csvFiles = directoryImport.importCSVdir(_csvFolderPath);
-            update_csv_list();
-        }
-
-        private void update_csv_list()
-        {
-            lib_csv_dir.DataSource = _csvFiles;
-            lib_csv_dir.SelectedIndex = _csvFiles.Count - 1;
-        }
-
-
-        //TAB 2 - PDF
         private void txt_pdf_dir_TextChanged(object sender, EventArgs e)
         {
             _pdfFolderPath = txt_pdf_dir.Text;
@@ -96,9 +81,30 @@ namespace checkCSV
             }
         }
 
+
+        //BUTTON
+        private void btn_check_csv_dir_Click(object sender, EventArgs e)
+        {
+            checkCSVdir();
+        }
+
         private void btn_check_pdf_dir_Click(object sender, EventArgs e)
         {
             checkPDFdir();
+        }
+
+        private void btn_save_defaults_Click(object sender, EventArgs e)
+        {
+            defaultSettings.writeDefaultDirectorys(_defaultCSVdir, _defaultPDFdir, _defaultIncastClass);
+        }
+
+
+        //FN
+        private void checkCSVdir()
+        {
+            lbl_csv_dir.Text = "Directory: " + _csvFolderPath;
+            _csvFiles = directoryImport.importCSVdir(_csvFolderPath);
+            update_csv_list();
         }
 
         private void checkPDFdir()
@@ -108,13 +114,29 @@ namespace checkCSV
             update_pdf_list();
         }
 
+
+        //ListBox
+        private void update_csv_list()
+        {
+            lib_csv_dir.DataSource = _csvFiles;
+            lib_csv_dir.SelectedIndex = _csvFiles.Count - 1;
+        }
+
         private void update_pdf_list()
         {
             lib_pdf_dir.DataSource = _pdfFiles;
         }
 
+        private void lib_csv_files_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lib_csv_dir.SelectedItem != null)
+            {
+                _csvFilePath = _csvFolderPath + lib_csv_dir.SelectedItem + ".csv";
+                lbl_csv_file.Text = "CSV: " + lib_csv_dir.SelectedItem + ".csv";
+            }
+        }
 
-        // TAB 4
+        //SETTINGS
         private void txt_default_csv_directory_TextChanged(object sender, EventArgs e)
         {
             _defaultCSVdir = txt_default_csv_dir.Text;
@@ -125,23 +147,10 @@ namespace checkCSV
             _defaultPDFdir = txt_default_pdf_dir.Text;
         }
 
-        private void btn_save_defaults_Click(object sender, EventArgs e)
-        {
-            defaults.writeDefaultDirectorys(_defaultCSVdir, _defaultPDFdir, _defaultIncastClass);
-        }
-
-        private void lib_csv_files_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lib_csv_dir.SelectedItem != null)
-            {
-                _csvFilePath = _csvFolderPath + lib_csv_dir.SelectedItem + ".csv";
-                lbl_csv_file.Text = _csvFilePath;
-            }
-        }
-
         private void txt_default_incast_class_TextChanged(object sender, EventArgs e)
         {
             _defaultIncastClass = txt_default_incast_class.Text;
         }
+
     }
 }

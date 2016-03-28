@@ -9,7 +9,7 @@ using System.IO;
 
 namespace checkCSV
 {
-    static class defaults
+    static class defaultSettings
     {
         public static bool readDefaultDirectorys(out string csv, out string pdf, out string incastClass)
         {
@@ -49,15 +49,24 @@ namespace checkCSV
 
         public static void writeDefaultDirectorys(string csv, string pdf, string incastClass)
         {
-            string fileName = @"checkCSV_settings.dat";
-            string[] values = { csv, pdf, incastClass };
-
-            if (File.Exists(fileName))
+            try
             {
-                File.Delete(fileName);
-            }
+                string fileName = @"checkCSV_settings.dat";
+                string[] values = { csv, pdf, incastClass };
 
-            File.WriteAllLines(fileName, values);
+                if (File.Exists(fileName))
+                {
+                    File.Delete(fileName);
+                }
+
+                File.WriteAllLines(fileName, values);
+
+                MessageBox.Show("Settings file saved");
+            }
+            catch
+            {
+                MessageBox.Show("Viga - 3");
+            }
         }
     }
 }
