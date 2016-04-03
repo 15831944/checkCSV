@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -44,6 +45,8 @@ namespace checkCSV
             lbl_pdf_dir.Text = "Directory: ";
             lbl_csv_file.Text = "CSV: None";
 
+            lv_csv_results.Columns.Add("Name"); update_width();
+
             if (hasSettings)
             {
                 checkCSVdir();
@@ -83,6 +86,11 @@ namespace checkCSV
 
 
         //BUTTON
+        private void btn_check_csv_Click(object sender, EventArgs e)
+        {
+            doMagicStuff();
+        }
+
         private void btn_check_csv_dir_Click(object sender, EventArgs e)
         {
             checkCSVdir();
@@ -100,6 +108,52 @@ namespace checkCSV
 
 
         //FN
+        private void doMagicStuff()
+        {
+            lv_csv_results.Clear();
+            lv_csv_results.Columns.Add("Name");
+            update_width();
+
+            List<ArrayList> parsedData = csvFileReader.importCSV(_csvFilePath, _incastClass);
+            ElementDataGroup reportData = ElementDataBuilder.dataBuilder(parsedData);
+
+    
+            
+            foreach (ElementData main in reportData)
+            {
+                lv_csv_results.Items.Add(main.ToString());
+                colorOfField(main);
+
+                foreach (ElementData special in main.specialDetails)
+                {
+                    lv_csv_results.Items.Add("    -    " + special.ToString());
+                    colorOfField(special);
+                }
+            }
+
+        }
+
+        private void colorOfField(ElementData part)
+        {
+            if (part.status == 1)
+            {
+                lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = Color.LimeGreen;
+            }
+            else if (part.status == 2)
+            {
+                lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = Color.Red;
+            }
+            else if (part.status == 3)
+            {
+                lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = Color.Yellow;
+            }
+            else
+            {
+                lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = Color.Cyan;
+            }
+        }
+
+
         private void checkCSVdir()
         {
             lbl_csv_dir.Text = "Directory: " + _csvFolderPath;
@@ -110,6 +164,7 @@ namespace checkCSV
         private void checkPDFdir()
         {
             lbl_pdf_dir.Text = "Directory: " + _pdfFolderPath;
+            lbl_pdf_dir_main.Text = "PDF: " + _pdfFolderPath;
             _pdfFiles = directoryImport.importPDFdir(_pdfFolderPath);
             update_pdf_list();
         }
@@ -152,5 +207,15 @@ namespace checkCSV
             _defaultIncastClass = txt_default_incast_class.Text;
         }
 
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            update_width();
+        }
+
+        private void update_width()
+        {
+            lv_csv_results.Columns[0].Width = -2;
+            lv_csv_results.Columns[0].Width = (Width - 55);
+        }
     }
 }

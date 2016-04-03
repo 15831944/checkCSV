@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,60 +10,67 @@ using System.IO;
 
 namespace checkCSV
 {
-    public class csvFileReader
+    static class csvFileReader
     {
-        private string _csvPath;
-        private string _incastClass;
-        private List<ElementData> _data;
-
-        public csvFileReader(string csvPath, string incastClass)
+        public static List<ArrayList> importCSV(string csvPath, string incastClass)
         {
-            _csvPath = csvPath;
-            _incastClass = incastClass;
-            _data = new List<ElementData>();
-        }
+            List<ArrayList> data = new List<ArrayList>();
 
-        public void importCSV()
-        {
             try
             {
-                readCSV();
+                data = readCSV(csvPath, incastClass);
             }
             catch
             {
                 MessageBox.Show("Viga - 4");
             }
+
+            return data;
         }
 
-        public void readCSV()
+        public static List<ArrayList> readCSV(string csvPath, string incastClass)
         {
-            StreamReader reader = new StreamReader(File.OpenRead(_csvPath));
+            List<ArrayList> data = new List<ArrayList>();
+            StreamReader reader = new StreamReader(File.OpenRead(csvPath));
 
             while (!reader.EndOfStream)
             {
                 string line = reader.ReadLine();
-                readLine(line);
+                ArrayList lineData = getDataFromLine(line, incastClass);
+                if (lineData.Count > 0)
+                {
+                    data.Add(lineData);
+                }
             }
 
             reader.Close();
+            return data;
         }
 
-        public void readLine(string line)
+        public static ArrayList getDataFromLine(string line, string incastClass)
         {
+            ArrayList lineData = new ArrayList();
+
             line = line.Replace(" ", "");
             string[] fields = line.Split(';');
+            int dummy;
 
-            if (fields.Length > 39)
+            if (int.TryParse(fields[5], out dummy))
             {
-                if (fields[2] != "")
-                {
-                    _data.Add(new ElementData(fields[2], fields[3], fields[39]));
-                }
-                else if (fields[21] == _incastClass)
-                {
-                    _data[_data.Count - 1].addSpecialDetail(fields[22]);
-                }
+                lineData.Add(true); //is mainPart
+                lineData.Add(fields[2]); //is name
+                lineData.Add(fields[3]); //is revision
+                lineData.Add(fields[39]); //is hasDrawing
             }
+            else if (fields[21] == incastClass)
+            {
+                lineData.Add(false); //is mainPart
+                lineData.Add(fields[22]); //is name
+                lineData.Add(""); //is revision
+                lineData.Add(""); //is hasDrawing
+            }
+
+            return lineData;
         }
 
     }

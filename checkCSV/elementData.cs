@@ -8,40 +8,37 @@ namespace checkCSV
 {
     class ElementData
     {
-        private string _mark;
-        private string _revision;
-        private string _hasDrawing;
-        private List<string> specialDetails = new List<string>();
+        public string name;
+        public string fullName;
 
-        private string _fullName;
-        private bool _set;
+        public bool set;
 
-        public ElementData(string mark, string revision, string hasDrawing)
+        public int status;
+
+        private string drawing;
+
+        private List<ElementData> specialDetails = new List<ElementData>();
+
+        public ElementData(string mark, string rev, string hasDrawing)
         {
-            _mark = mark;
-            _revision = revision;
-            _hasDrawing = hasDrawing;
+            name = mark;
 
-            analyse();
+            fullName = mark;
+            if (rev.Length > 0) fullName = fullName + "_Rev" + rev;
 
+            set = false;
+            if (hasDrawing == "1") set = true;
         }
 
-        public void analyse()
-        {
-            if (_revision.Length > 0)
-            {
-                _fullName = _mark + "_Rev" + _revision;
-            }
 
-            if (_hasDrawing == "1")
-                _set = true;
-            else
-                _set = false;
+        public void addSpecialDetail(ElementData part)
+        {
+            specialDetails.Add(part);
         }
 
-        public void addSpecialDetail(string name)
+        public override string ToString()
         {
-            specialDetails.Add(name);
+            return fullName + "     " + status.ToString();
         }
     }
 }

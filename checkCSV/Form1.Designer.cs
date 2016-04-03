@@ -30,6 +30,9 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lv_csv_results = new System.Windows.Forms.ListView();
+            this.lbl_pdf_dir_main = new System.Windows.Forms.Label();
+            this.lbl_csv_file = new System.Windows.Forms.Label();
             this.btn_check_csv = new System.Windows.Forms.Button();
             this.txt_incastClass = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -50,8 +53,6 @@
             this.lbl_default_csv_directory = new System.Windows.Forms.Label();
             this.txt_default_pdf_dir = new System.Windows.Forms.TextBox();
             this.txt_default_csv_dir = new System.Windows.Forms.TextBox();
-            this.lbl_csv_file = new System.Windows.Forms.Label();
-            this.lib_csv_results = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -75,7 +76,8 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.lib_csv_results);
+            this.tabPage3.Controls.Add(this.lv_csv_results);
+            this.tabPage3.Controls.Add(this.lbl_pdf_dir_main);
             this.tabPage3.Controls.Add(this.lbl_csv_file);
             this.tabPage3.Controls.Add(this.btn_check_csv);
             this.tabPage3.Controls.Add(this.txt_incastClass);
@@ -87,17 +89,58 @@
             this.tabPage3.Text = "Results";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // lv_csv_results
+            // 
+            this.lv_csv_results.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lv_csv_results.FullRowSelect = true;
+            this.lv_csv_results.Location = new System.Drawing.Point(3, 108);
+            this.lv_csv_results.MultiSelect = false;
+            this.lv_csv_results.Name = "lv_csv_results";
+            this.lv_csv_results.Size = new System.Drawing.Size(467, 424);
+            this.lv_csv_results.TabIndex = 1;
+            this.lv_csv_results.UseCompatibleStateImageBehavior = false;
+            this.lv_csv_results.View = System.Windows.Forms.View.Details;
+            // 
+            // lbl_pdf_dir_main
+            // 
+            this.lbl_pdf_dir_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_pdf_dir_main.AutoSize = true;
+            this.lbl_pdf_dir_main.Location = new System.Drawing.Point(5, 80);
+            this.lbl_pdf_dir_main.Name = "lbl_pdf_dir_main";
+            this.lbl_pdf_dir_main.Size = new System.Drawing.Size(67, 13);
+            this.lbl_pdf_dir_main.TabIndex = 7;
+            this.lbl_pdf_dir_main.Text = "<lbl_pdf_dir>";
+            // 
+            // lbl_csv_file
+            // 
+            this.lbl_csv_file.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_csv_file.AutoSize = true;
+            this.lbl_csv_file.Location = new System.Drawing.Point(5, 60);
+            this.lbl_csv_file.Name = "lbl_csv_file";
+            this.lbl_csv_file.Size = new System.Drawing.Size(71, 13);
+            this.lbl_csv_file.TabIndex = 5;
+            this.lbl_csv_file.Text = "<lbl_csv_file>";
+            // 
             // btn_check_csv
             // 
+            this.btn_check_csv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_check_csv.Location = new System.Drawing.Point(3, 29);
             this.btn_check_csv.Name = "btn_check_csv";
             this.btn_check_csv.Size = new System.Drawing.Size(470, 23);
             this.btn_check_csv.TabIndex = 1;
             this.btn_check_csv.Text = "check CSV file";
             this.btn_check_csv.UseVisualStyleBackColor = true;
+            this.btn_check_csv.Click += new System.EventHandler(this.btn_check_csv_Click);
             // 
             // txt_incastClass
             // 
+            this.txt_incastClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_incastClass.Location = new System.Drawing.Point(3, 3);
             this.txt_incastClass.Name = "txt_incastClass";
             this.txt_incastClass.Size = new System.Drawing.Size(470, 20);
@@ -187,14 +230,12 @@
             // 
             // lib_pdf_dir
             // 
-            this.lib_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lib_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lib_pdf_dir.FormattingEnabled = true;
             this.lib_pdf_dir.Location = new System.Drawing.Point(3, 78);
             this.lib_pdf_dir.Name = "lib_pdf_dir";
             this.lib_pdf_dir.Size = new System.Drawing.Size(467, 446);
-            this.lib_pdf_dir.TabIndex = 2;
+            this.lib_pdf_dir.TabIndex = 5;
             // 
             // btn_checkPDF
             // 
@@ -304,28 +345,6 @@
             this.txt_default_csv_dir.TabIndex = 0;
             this.txt_default_csv_dir.TextChanged += new System.EventHandler(this.txt_default_csv_directory_TextChanged);
             // 
-            // lbl_csv_file
-            // 
-            this.lbl_csv_file.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_csv_file.AutoSize = true;
-            this.lbl_csv_file.Location = new System.Drawing.Point(0, 55);
-            this.lbl_csv_file.Name = "lbl_csv_file";
-            this.lbl_csv_file.Size = new System.Drawing.Size(71, 13);
-            this.lbl_csv_file.TabIndex = 5;
-            this.lbl_csv_file.Text = "<lbl_csv_file>";
-            // 
-            // lib_csv_results
-            // 
-            this.lib_csv_results.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lib_csv_results.FormattingEnabled = true;
-            this.lib_csv_results.Location = new System.Drawing.Point(3, 78);
-            this.lib_csv_results.Name = "lib_csv_results";
-            this.lib_csv_results.Size = new System.Drawing.Size(467, 446);
-            this.lib_csv_results.TabIndex = 6;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -335,6 +354,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -373,7 +393,8 @@
         private System.Windows.Forms.Button btn_check_csv;
         private System.Windows.Forms.TextBox txt_incastClass;
         private System.Windows.Forms.Label lbl_csv_file;
-        private System.Windows.Forms.ListBox lib_csv_results;
+        private System.Windows.Forms.Label lbl_pdf_dir_main;
+        private System.Windows.Forms.ListView lv_csv_results;
     }
 }
 
