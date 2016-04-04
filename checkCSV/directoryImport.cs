@@ -14,6 +14,7 @@ namespace checkCSV
         public static List<string> importCSVdir(string csvPath)
         {
             List<string> files = new List<string>();
+
             try
             {
                 files = importer(csvPath, "*.csv");
@@ -27,12 +28,15 @@ namespace checkCSV
                 MessageBox.Show("Viga - 1");
             }
 
+            files.Sort();
+
             return files;
         }
 
         public static List<string> importPDFdir(string path)
         {
             List<string> files = new List<string>();
+
             try
             {
                 files = importerer(path);
@@ -45,6 +49,8 @@ namespace checkCSV
             {
                 MessageBox.Show("Viga - 2");
             }
+
+            files.Sort();
 
             return files;
         }
@@ -75,8 +81,8 @@ namespace checkCSV
 
             foreach (string file in importFiles)
             {
-                string name = Path.GetFileNameWithoutExtension(file);
-                files.Add(name);
+                //string name = Path.GetFileNameWithoutExtension(file);
+                files.Add(file);
             }
 
             return files;

@@ -15,9 +15,10 @@ namespace checkCSV
 
         public int status;
 
-        private string drawing;
+        public string drawingPath;
 
-        private List<ElementData> specialDetails = new List<ElementData>();
+        public List<ElementData> specialDetails = new List<ElementData>();
+        public List<ElementData> mainParts = new List<ElementData>();
 
         public ElementData(string mark, string rev, string hasDrawing)
         {
@@ -36,9 +37,24 @@ namespace checkCSV
             specialDetails.Add(part);
         }
 
+        public void addMainPart(ElementData part)
+        {
+            mainParts.Add(part);
+        }
+
         public override string ToString()
         {
-            return fullName + "     " + status.ToString();
+            return fullName;
+        }
+
+        public void setStatus(int i)
+        {
+            status = i;
+        }
+
+        public void setDrawing(string path)
+        {
+            drawingPath = path;
         }
     }
 }
