@@ -42,11 +42,6 @@ namespace checkCSV
             mainParts.Add(part);
         }
 
-        public override string ToString()
-        {
-            return fullName;
-        }
-
         public void setStatus(int i)
         {
             status = i;
@@ -56,5 +51,20 @@ namespace checkCSV
         {
             drawingPath = path;
         }
+
+        public override string ToString()
+        {
+            if (mainParts.Count == 0)
+            {
+                return fullName;
+            }
+            else
+            {
+                return "    -    " + fullName;
+            }
+            
+        }
+
+
     }
 }

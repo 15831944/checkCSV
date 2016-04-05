@@ -15,10 +15,12 @@ namespace checkCSV
         public int status_ok;
         public int status_missing;
         public int status_not_set;
+        public int status_not_set_has_drawing;
 
         public List<ElementData> allMainParts;
         public List<ElementData> allSpecialParts;
         public List<ElementData> allParts;
+        public List<string> _drawings;
 
         public ElementDataGroup()
         {
@@ -27,8 +29,10 @@ namespace checkCSV
             allParts = new List<ElementData>();
         }
 
-        public void buildData(List<ArrayList> raw)
+        public void buildData(List<ArrayList> raw, List<string> drawings)
         {
+            _drawings = drawings;
+
             foreach (ArrayList element in raw)
             {
                 if ((bool)element[0] == true)
@@ -68,28 +72,17 @@ namespace checkCSV
             }
         }
 
-        public void findDrawings(List<string> drawings)
+        public void findDrawings()
         {
             total = allMainParts.Count + allSpecialParts.Count;
             status_ok = 0;
             status_missing = 0;
             status_not_set = 0;
+            status_not_set_has_drawing = 0;
 
             foreach (ElementData main in allMainParts)
             {
-                foreach (string drawing in drawings)
-                {
-                    if (main.fullName == Path.GetFileNameWithoutExtension(drawing))
-                    {
-                        if (main.set == true)
-                        {
-                            main.setStatus(1); status_ok++;
-                        }
-
-                        main.setDrawing(drawing);
-                        break;
-                    }
-                }
+                setStatusLogic(main);
 
                 if (main.set == true)
                 {
@@ -97,54 +90,49 @@ namespace checkCSV
                     {
                         special.set = true;
                     }
-
-                    if (main.status != 1)
-                    {
-                        main.setStatus(2); status_missing++;
-                    }
-                }
-                else
-                {
-                    main.setStatus(3); status_not_set++;
                 }
             }
 
             foreach (ElementData special in allSpecialParts)
             {
-                foreach (string drawing in drawings)
-                {
-                    if (special.fullName == Path.GetFileNameWithoutExtension(drawing))
-                    {
-                        if (special.set == true)
-                        {
-                            special.setStatus(1); status_ok++;
-                        }
-                        special.setDrawing(drawing);
-                        break;
-                    }
-                }
-
-                if (special.set == true)
-                {
-                    if (special.status != 1)
-                    {
-                        special.setStatus(2); status_missing++;
-                    }
-                }
-                else
-                {
-                    special.setStatus(3); status_not_set++;
-                }
+                setStatusLogic(special);
             }
         }
 
-        public bool checkForDrawing(string elementName, List<string> drawings)
+        public void setStatusLogic(ElementData part)
         {
-            if (drawings.Contains(elementName))
+            foreach (string drawing in _drawings)
             {
-                return true;
+                if (part.fullName == Path.GetFileNameWithoutExtension(drawing))
+                {
+                    if (part.set == true)
+                    {
+                        part.setStatus(1); status_ok++;
+                    }
+                    else
+                    {
+                        part.setStatus(4); status_not_set_has_drawing++;
+                    }
+
+                    part.setDrawing(drawing);
+                    break;
+                }
             }
-            return false;
+
+            if (part.set == true)
+            {
+                if (part.status != 1)
+                {
+                    part.setStatus(2); status_missing++;
+                }
+            }
+            else
+            {
+                if (part.status != 4)
+                {
+                    part.setStatus(3); status_not_set++;
+                }
+            }
         }
     }
 } 

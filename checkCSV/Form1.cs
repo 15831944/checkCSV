@@ -26,6 +26,8 @@ namespace checkCSV
         private string _csvFilePath;
         private string _incastClass;
 
+        private string _exportFolderPath;
+
         private int _rb_filter;
 
         List<string> _csvFiles = new List<string>();
@@ -38,6 +40,20 @@ namespace checkCSV
             InitializeComponent();
         }
 
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            if (lv_csv_results.Columns.Count > 0)
+            {
+                lv_csv_results.Columns[0].Width = -2;
+                lv_csv_results.Columns[1].Width = -2;
+            }
+
+            if (lv_pdf_dir.Columns.Count > 0)
+            {
+                lv_pdf_dir.Columns[0].Width = -2;
+                lv_pdf_dir.Columns[1].Width = -2;
+            }
+        }
 
         //LOADING
         private void Form1_Load(object sender, EventArgs e)
@@ -47,12 +63,13 @@ namespace checkCSV
             txt_csv_dir.Text = _csvFolderPath;
             txt_pdf_dir.Text = _pdfFolderPath;
             txt_incastClass.Text = _incastClass;
+            txt_export_target.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\";
 
             lbl_csv_dir.Text = "Directory: ";
             lbl_pdf_dir.Text = "Directory: ";
             lbl_csv_file.Text = "CSV: None";
 
-            update_radio_box_text();
+            rb_update_text();
 
             if (hasSettings)
             {
@@ -67,6 +84,15 @@ namespace checkCSV
         {
             _incastClass = txt_incastClass.Text;
             txt_default_incast_class.Text = _incastClass;
+        }
+
+        private void txt_export_target_TextChanged(object sender, EventArgs e)
+        {
+            _exportFolderPath = txt_export_target.Text;
+            if (!_exportFolderPath.EndsWith(@"\"))
+            {
+                _exportFolderPath = _exportFolderPath + @"\";
+            }
         }
 
         private void txt_csv_dir_TextChanged(object sender, EventArgs e)
@@ -97,20 +123,13 @@ namespace checkCSV
         {
             List<ArrayList> parsedData = csvFileReader.importCSV(_csvFilePath, _incastClass);
             _reportData = new ElementDataGroup();
-            _reportData.buildData(parsedData);
-            _reportData.findDrawings(_pdfFiles);
+            _reportData.buildData(parsedData, _pdfFiles);
+            _reportData.findDrawings();
 
-            update_status_list();
-            update_radio_box_text();
-
-            if (_reportData.total > 0)
-            {
-                rb_status_0.Enabled = true;
-                rb_status_1.Enabled = true;
-                rb_status_2.Enabled = true;
-                rb_status_3.Enabled = true;
-            }
+            status_list_update();
+            rb_enable_buttons();
         }
+
 
         private void btn_check_csv_dir_Click(object sender, EventArgs e)
         {
@@ -127,19 +146,9 @@ namespace checkCSV
             defaultSettings.writeDefaultDirectorys(_defaultCSVdir, _defaultPDFdir, _defaultIncastClass);
         }
 
-        private void update_radio_box_text()
-        {
-            rb_status_0.Text = "Total (" + _reportData.total.ToString() + ")";
-            rb_status_1.Text = "OK (" + _reportData.status_ok + ")";
-            rb_status_2.Text = "Missing (" + _reportData.status_missing + ")";
-            rb_status_3.Text = "Not Set (" + _reportData.status_not_set + ")";
-        }
-
-        //FN
-
 
         //ListBox
-        private void update_status_list()
+        private void status_list_update()
         {
             lv_csv_results.Clear();
             lv_csv_results.Columns.Add("Name");
@@ -158,13 +167,11 @@ namespace checkCSV
             {
                 foreach (ElementData main in _reportData.allMainParts)
                 {
-                    lv_csv_results.Items.Add(main.ToString()).SubItems.Add(main.drawingPath);
-                    colorOfField(main);
+                    addPartToList(main);
 
                     foreach (ElementData special in main.specialDetails)
                     {
-                        lv_csv_results.Items.Add("    -    " + special.ToString()).SubItems.Add(special.drawingPath);
-                        colorOfField(special);
+                        addPartToList(special);
                     }
                 }
             }
@@ -189,16 +196,24 @@ namespace checkCSV
                             filtered = _reportData.allParts.Where(x => x.status == 3).ToList();
                             break;
                         }
+                    case 4:
+                        {
+                            filtered = _reportData.allParts.Where(x => x.status == 4).ToList();
+                            break;
+                        }
                 }
 
                 foreach (ElementData part in filtered)
                 {
-                    lv_csv_results.Items.Add(part.ToString()).SubItems.Add(part.drawingPath);
-                    colorOfField(part);
+                    addPartToList(part);
                 }
             }
+        }
 
-
+        private void addPartToList(ElementData part)
+        {
+            lv_csv_results.Items.Add(part.ToString()).SubItems.Add(part.drawingPath);
+            colorOfField(part);
         }
 
         private void colorOfField(ElementData part)
@@ -268,11 +283,7 @@ namespace checkCSV
         private void lib_csv_files_SelectedIndexChanged(object sender, EventArgs e)
         {
             lv_csv_results.Clear();
-
-            rb_status_0.Enabled = false;
-            rb_status_1.Enabled = false;
-            rb_status_2.Enabled = false;
-            rb_status_3.Enabled = false;
+            rb_disable_buttons();
 
             if (lib_csv_dir.SelectedItem != null)
             {
@@ -297,65 +308,110 @@ namespace checkCSV
             _defaultIncastClass = txt_default_incast_class.Text;
         }
 
-        private void Form1_SizeChanged(object sender, EventArgs e)
-        {
-            if (lv_csv_results.Columns.Count > 0)
-            {
-                lv_csv_results.Columns[0].Width = -2;
-                lv_csv_results.Columns[1].Width = -2;
-            }
-
-            if (lv_pdf_dir.Columns.Count > 0)
-            {
-                lv_pdf_dir.Columns[0].Width = -2;
-                lv_pdf_dir.Columns[1].Width = -2;
-            }
-        }
-
         private void rb_status_0_CheckedChanged(object sender, EventArgs e)
         {
-            set_rb_value();
-            update_status_list();
+            rb_set_value();
+            status_list_update();
         }
 
         private void rb_status_1_CheckedChanged(object sender, EventArgs e)
         {
-            set_rb_value();
-            update_status_list();
+            rb_set_value();
+            status_list_update();
         }
 
         private void rb_status_2_CheckedChanged(object sender, EventArgs e)
         {
-            set_rb_value();
-            update_status_list();
+            rb_set_value();
+            status_list_update();
         }
 
         private void rb_status_3_CheckedChanged(object sender, EventArgs e)
         {
-            set_rb_value();
-            update_status_list();
+            rb_set_value();
+            status_list_update();
         }
 
-        private void set_rb_value()
+        private void rb_status_4_CheckedChanged(object sender, EventArgs e)
+        {
+            rb_set_value();
+            status_list_update();
+        }
+
+        private void rb_enable_buttons()
+        {
+            rb_update_text();
+
+            if (_reportData.total > 0)
+            {
+                rb_status_0.Enabled = true;
+                rb_status_1.Enabled = true;
+                rb_status_1.BackColor = Color.Lime;
+                rb_status_2.Enabled = true;
+                rb_status_2.BackColor = Color.Red;
+                rb_status_3.Enabled = true;
+                rb_status_3.BackColor = Color.Yellow;
+                rb_status_4.Enabled = true;
+                rb_status_4.BackColor = Color.Cyan;
+            }
+        }
+
+        private void rb_disable_buttons()
+        {
+            rb_update_text();
+
+            rb_status_0.Enabled = false;
+            rb_status_1.Enabled = false;
+            rb_status_1.BackColor = Color.Transparent;
+            rb_status_2.Enabled = false;
+            rb_status_2.BackColor = Color.Transparent;
+            rb_status_3.Enabled = false;
+            rb_status_3.BackColor = Color.Transparent;
+            rb_status_4.Enabled = false;
+            rb_status_4.BackColor = Color.Transparent;
+        }
+
+        private void rb_update_text()
+        {
+            rb_status_0.Text = "Total (" + _reportData.total.ToString() + ")";
+            rb_status_1.Text = "OK (" + _reportData.status_ok + ")";
+            rb_status_2.Text = "Missing (" + _reportData.status_missing + ")";
+            rb_status_3.Text = "Not Set (" + _reportData.status_not_set + ")";
+            rb_status_4.Text = "Not Set - has drawing (" + _reportData.status_not_set_has_drawing + ")";
+        }
+
+        private void rb_set_value()
         {
             if (rb_status_0.Checked)
             {
                 _rb_filter = 0;
             }
-
-            if (rb_status_1.Checked)
+            else if (rb_status_1.Checked)
             {
                 _rb_filter = 1;
             }
 
-            if (rb_status_2.Checked)
+            else if (rb_status_2.Checked)
             {
                 _rb_filter = 2;
             }
 
-            if (rb_status_3.Checked)
+            else if (rb_status_3.Checked)
             {
                 _rb_filter = 3;
+            }
+
+            else if (rb_status_4.Checked)
+            {
+                _rb_filter = 4;
+            }
+        }
+
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            if (_reportData.allParts.Where(x => x.status == 1).ToList().Count > 0)
+            {
+                //panel_export.Enabled = true;
             }
         }
     }

@@ -51,6 +51,7 @@
     <Compile Include="defaultSettings.cs" />
     <Compile Include="ElementData.cs" />
     <Compile Include="ElementDataGroup.cs" />
+    <Compile Include="exportModule.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

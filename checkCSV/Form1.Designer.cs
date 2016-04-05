@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tab_results = new System.Windows.Forms.TabPage();
             this.rb_status_3 = new System.Windows.Forms.RadioButton();
             this.rb_status_2 = new System.Windows.Forms.RadioButton();
             this.rb_status_1 = new System.Windows.Forms.RadioButton();
@@ -39,17 +39,17 @@
             this.lbl_csv_file = new System.Windows.Forms.Label();
             this.btn_check_csv = new System.Windows.Forms.Button();
             this.txt_incastClass = new System.Windows.Forms.TextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tab_csv = new System.Windows.Forms.TabPage();
             this.lbl_csv_dir = new System.Windows.Forms.Label();
             this.lib_csv_dir = new System.Windows.Forms.ListBox();
             this.btn_check_csv_dir = new System.Windows.Forms.Button();
             this.txt_csv_dir = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tab_pdf = new System.Windows.Forms.TabPage();
             this.lv_pdf_dir = new System.Windows.Forms.ListView();
             this.lbl_pdf_dir = new System.Windows.Forms.Label();
             this.btn_checkPDF = new System.Windows.Forms.Button();
             this.txt_pdf_dir = new System.Windows.Forms.TextBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tab_settings = new System.Windows.Forms.TabPage();
             this.txt_default_incast_class = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_save_defaults = new System.Windows.Forms.Button();
@@ -57,19 +57,28 @@
             this.lbl_default_csv_directory = new System.Windows.Forms.Label();
             this.txt_default_pdf_dir = new System.Windows.Forms.TextBox();
             this.txt_default_csv_dir = new System.Windows.Forms.TextBox();
+            this.rb_status_4 = new System.Windows.Forms.RadioButton();
+            this.tab_folder = new System.Windows.Forms.TabPage();
+            this.panel_export = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txt_export_target = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.tab_results.SuspendLayout();
+            this.tab_csv.SuspendLayout();
+            this.tab_pdf.SuspendLayout();
+            this.tab_settings.SuspendLayout();
+            this.tab_folder.SuspendLayout();
+            this.panel_export.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tab_results);
+            this.tabControl1.Controls.Add(this.tab_folder);
+            this.tabControl1.Controls.Add(this.tab_settings);
+            this.tabControl1.Controls.Add(this.tab_csv);
+            this.tabControl1.Controls.Add(this.tab_pdf);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -77,25 +86,27 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(664, 761);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
-            // tabPage3
+            // tab_results
             // 
-            this.tabPage3.Controls.Add(this.rb_status_3);
-            this.tabPage3.Controls.Add(this.rb_status_2);
-            this.tabPage3.Controls.Add(this.rb_status_1);
-            this.tabPage3.Controls.Add(this.rb_status_0);
-            this.tabPage3.Controls.Add(this.lv_csv_results);
-            this.tabPage3.Controls.Add(this.lbl_pdf_dir_main);
-            this.tabPage3.Controls.Add(this.lbl_csv_file);
-            this.tabPage3.Controls.Add(this.btn_check_csv);
-            this.tabPage3.Controls.Add(this.txt_incastClass);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(656, 735);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Results";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tab_results.Controls.Add(this.rb_status_4);
+            this.tab_results.Controls.Add(this.rb_status_3);
+            this.tab_results.Controls.Add(this.rb_status_2);
+            this.tab_results.Controls.Add(this.rb_status_1);
+            this.tab_results.Controls.Add(this.rb_status_0);
+            this.tab_results.Controls.Add(this.lv_csv_results);
+            this.tab_results.Controls.Add(this.lbl_pdf_dir_main);
+            this.tab_results.Controls.Add(this.lbl_csv_file);
+            this.tab_results.Controls.Add(this.btn_check_csv);
+            this.tab_results.Controls.Add(this.txt_incastClass);
+            this.tab_results.Location = new System.Drawing.Point(4, 22);
+            this.tab_results.Name = "tab_results";
+            this.tab_results.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_results.Size = new System.Drawing.Size(656, 735);
+            this.tab_results.TabIndex = 2;
+            this.tab_results.Text = "Results";
+            this.tab_results.UseVisualStyleBackColor = true;
             // 
             // rb_status_3
             // 
@@ -107,7 +118,7 @@
             this.rb_status_3.TabIndex = 11;
             this.rb_status_3.TabStop = true;
             this.rb_status_3.Text = "<rb_status3>";
-            this.rb_status_3.UseVisualStyleBackColor = true;
+            this.rb_status_3.UseVisualStyleBackColor = false;
             this.rb_status_3.CheckedChanged += new System.EventHandler(this.rb_status_3_CheckedChanged);
             // 
             // rb_status_2
@@ -120,7 +131,7 @@
             this.rb_status_2.TabIndex = 10;
             this.rb_status_2.TabStop = true;
             this.rb_status_2.Text = "<rb_status_2>";
-            this.rb_status_2.UseVisualStyleBackColor = true;
+            this.rb_status_2.UseVisualStyleBackColor = false;
             this.rb_status_2.CheckedChanged += new System.EventHandler(this.rb_status_2_CheckedChanged);
             // 
             // rb_status_1
@@ -133,7 +144,7 @@
             this.rb_status_1.TabIndex = 9;
             this.rb_status_1.TabStop = true;
             this.rb_status_1.Text = "<rb_status_1>";
-            this.rb_status_1.UseVisualStyleBackColor = true;
+            this.rb_status_1.UseVisualStyleBackColor = false;
             this.rb_status_1.CheckedChanged += new System.EventHandler(this.rb_status_1_CheckedChanged);
             // 
             // rb_status_0
@@ -209,19 +220,19 @@
             this.txt_incastClass.Text = "<incast detail class>";
             this.txt_incastClass.TextChanged += new System.EventHandler(this.txt_incastClass_TextChanged);
             // 
-            // tabPage1
+            // tab_csv
             // 
-            this.tabPage1.Controls.Add(this.lbl_csv_dir);
-            this.tabPage1.Controls.Add(this.lib_csv_dir);
-            this.tabPage1.Controls.Add(this.btn_check_csv_dir);
-            this.tabPage1.Controls.Add(this.txt_csv_dir);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(656, 735);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "CSV";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tab_csv.Controls.Add(this.lbl_csv_dir);
+            this.tab_csv.Controls.Add(this.lib_csv_dir);
+            this.tab_csv.Controls.Add(this.btn_check_csv_dir);
+            this.tab_csv.Controls.Add(this.txt_csv_dir);
+            this.tab_csv.Location = new System.Drawing.Point(4, 22);
+            this.tab_csv.Name = "tab_csv";
+            this.tab_csv.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_csv.Size = new System.Drawing.Size(656, 735);
+            this.tab_csv.TabIndex = 0;
+            this.tab_csv.Text = "CSV";
+            this.tab_csv.UseVisualStyleBackColor = true;
             // 
             // lbl_csv_dir
             // 
@@ -266,19 +277,19 @@
             this.txt_csv_dir.Text = "<csv directory>";
             this.txt_csv_dir.TextChanged += new System.EventHandler(this.txt_csv_dir_TextChanged);
             // 
-            // tabPage2
+            // tab_pdf
             // 
-            this.tabPage2.Controls.Add(this.lv_pdf_dir);
-            this.tabPage2.Controls.Add(this.lbl_pdf_dir);
-            this.tabPage2.Controls.Add(this.btn_checkPDF);
-            this.tabPage2.Controls.Add(this.txt_pdf_dir);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(656, 735);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "PDF";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tab_pdf.Controls.Add(this.lv_pdf_dir);
+            this.tab_pdf.Controls.Add(this.lbl_pdf_dir);
+            this.tab_pdf.Controls.Add(this.btn_checkPDF);
+            this.tab_pdf.Controls.Add(this.txt_pdf_dir);
+            this.tab_pdf.Location = new System.Drawing.Point(4, 22);
+            this.tab_pdf.Name = "tab_pdf";
+            this.tab_pdf.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_pdf.Size = new System.Drawing.Size(656, 735);
+            this.tab_pdf.TabIndex = 1;
+            this.tab_pdf.Text = "PDF";
+            this.tab_pdf.UseVisualStyleBackColor = true;
             // 
             // lv_pdf_dir
             // 
@@ -325,22 +336,22 @@
             this.txt_pdf_dir.Text = "<pdf directory>";
             this.txt_pdf_dir.TextChanged += new System.EventHandler(this.txt_pdf_dir_TextChanged);
             // 
-            // tabPage4
+            // tab_settings
             // 
-            this.tabPage4.Controls.Add(this.txt_default_incast_class);
-            this.tabPage4.Controls.Add(this.label2);
-            this.tabPage4.Controls.Add(this.btn_save_defaults);
-            this.tabPage4.Controls.Add(this.label1);
-            this.tabPage4.Controls.Add(this.lbl_default_csv_directory);
-            this.tabPage4.Controls.Add(this.txt_default_pdf_dir);
-            this.tabPage4.Controls.Add(this.txt_default_csv_dir);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(656, 735);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Settings";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tab_settings.Controls.Add(this.txt_default_incast_class);
+            this.tab_settings.Controls.Add(this.label2);
+            this.tab_settings.Controls.Add(this.btn_save_defaults);
+            this.tab_settings.Controls.Add(this.label1);
+            this.tab_settings.Controls.Add(this.lbl_default_csv_directory);
+            this.tab_settings.Controls.Add(this.txt_default_pdf_dir);
+            this.tab_settings.Controls.Add(this.txt_default_csv_dir);
+            this.tab_settings.Location = new System.Drawing.Point(4, 22);
+            this.tab_settings.Name = "tab_settings";
+            this.tab_settings.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_settings.Size = new System.Drawing.Size(656, 735);
+            this.tab_settings.TabIndex = 3;
+            this.tab_settings.Text = "Settings";
+            this.tab_settings.UseVisualStyleBackColor = true;
             // 
             // txt_default_incast_class
             // 
@@ -365,7 +376,7 @@
             // 
             this.btn_save_defaults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_save_defaults.Location = new System.Drawing.Point(3, 132);
+            this.btn_save_defaults.Location = new System.Drawing.Point(3, 123);
             this.btn_save_defaults.Name = "btn_save_defaults";
             this.btn_save_defaults.Size = new System.Drawing.Size(650, 23);
             this.btn_save_defaults.TabIndex = 2;
@@ -411,6 +422,72 @@
             this.txt_default_csv_dir.TabIndex = 0;
             this.txt_default_csv_dir.TextChanged += new System.EventHandler(this.txt_default_csv_directory_TextChanged);
             // 
+            // rb_status_4
+            // 
+            this.rb_status_4.AutoSize = true;
+            this.rb_status_4.Enabled = false;
+            this.rb_status_4.Location = new System.Drawing.Point(389, 104);
+            this.rb_status_4.Name = "rb_status_4";
+            this.rb_status_4.Size = new System.Drawing.Size(86, 17);
+            this.rb_status_4.TabIndex = 11;
+            this.rb_status_4.TabStop = true;
+            this.rb_status_4.Text = "<rb_status4>";
+            this.rb_status_4.UseVisualStyleBackColor = false;
+            this.rb_status_4.CheckedChanged += new System.EventHandler(this.rb_status_4_CheckedChanged);
+            // 
+            // tab_folder
+            // 
+            this.tab_folder.Controls.Add(this.panel_export);
+            this.tab_folder.Location = new System.Drawing.Point(4, 22);
+            this.tab_folder.Name = "tab_folder";
+            this.tab_folder.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_folder.Size = new System.Drawing.Size(656, 735);
+            this.tab_folder.TabIndex = 4;
+            this.tab_folder.Text = "Foldering";
+            this.tab_folder.UseVisualStyleBackColor = true;
+            // 
+            // panel_export
+            // 
+            this.panel_export.Controls.Add(this.button1);
+            this.panel_export.Controls.Add(this.txt_export_target);
+            this.panel_export.Controls.Add(this.label3);
+            this.panel_export.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_export.Enabled = false;
+            this.panel_export.Location = new System.Drawing.Point(3, 3);
+            this.panel_export.Name = "panel_export";
+            this.panel_export.Size = new System.Drawing.Size(650, 729);
+            this.panel_export.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(-3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Target directory";
+            // 
+            // txt_export_target
+            // 
+            this.txt_export_target.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_export_target.Location = new System.Drawing.Point(0, 16);
+            this.txt_export_target.Name = "txt_export_target";
+            this.txt_export_target.Size = new System.Drawing.Size(650, 20);
+            this.txt_export_target.TabIndex = 1;
+            this.txt_export_target.TextChanged += new System.EventHandler(this.txt_export_target_TextChanged);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(0, 41);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(650, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Copy drawings to location";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -419,19 +496,23 @@
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(680, 800);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
+            this.tab_results.ResumeLayout(false);
+            this.tab_results.PerformLayout();
+            this.tab_csv.ResumeLayout(false);
+            this.tab_csv.PerformLayout();
+            this.tab_pdf.ResumeLayout(false);
+            this.tab_pdf.PerformLayout();
+            this.tab_settings.ResumeLayout(false);
+            this.tab_settings.PerformLayout();
+            this.tab_folder.ResumeLayout(false);
+            this.panel_export.ResumeLayout(false);
+            this.panel_export.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -439,14 +520,14 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tab_csv;
+        private System.Windows.Forms.TabPage tab_pdf;
+        private System.Windows.Forms.TabPage tab_results;
         private System.Windows.Forms.TextBox txt_csv_dir;
         private System.Windows.Forms.Button btn_check_csv_dir;
         private System.Windows.Forms.ListBox lib_csv_dir;
         private System.Windows.Forms.Label lbl_csv_dir;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tab_settings;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbl_default_csv_directory;
         private System.Windows.Forms.TextBox txt_default_csv_dir;
@@ -467,6 +548,12 @@
         private System.Windows.Forms.RadioButton rb_status_2;
         private System.Windows.Forms.RadioButton rb_status_1;
         private System.Windows.Forms.RadioButton rb_status_0;
+        private System.Windows.Forms.RadioButton rb_status_4;
+        private System.Windows.Forms.TabPage tab_folder;
+        private System.Windows.Forms.Panel panel_export;
+        private System.Windows.Forms.TextBox txt_export_target;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
     }
 }
 
