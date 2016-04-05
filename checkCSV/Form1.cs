@@ -96,6 +96,7 @@ namespace checkCSV
         private void btn_check_csv_Click(object sender, EventArgs e)
         {
             List<ArrayList> parsedData = csvFileReader.importCSV(_csvFilePath, _incastClass);
+            _reportData = new ElementDataGroup();
             _reportData.buildData(parsedData);
             _reportData.findDrawings(_pdfFiles);
 

@@ -15,23 +15,34 @@ namespace checkCSV
         public static List<ArrayList> importCSV(string csvPath, string incastClass)
         {
             List<ArrayList> data = new List<ArrayList>();
+            StreamReader reader = null;
 
             try
             {
-                data = readCSV(csvPath, incastClass);
+                reader = new StreamReader(File.OpenRead(csvPath));
+                data = readCSV(reader, incastClass);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("Viga - 4a\n" + "csv on avatud teise programmi poolt?");
+                
             }
             catch
             {
-                MessageBox.Show("Viga - 4");
+                MessageBox.Show("Viga - 4b");
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
             }
 
             return data;
         }
 
-        public static List<ArrayList> readCSV(string csvPath, string incastClass)
+        public static List<ArrayList> readCSV(StreamReader reader, string incastClass)
         {
             List<ArrayList> data = new List<ArrayList>();
-            StreamReader reader = new StreamReader(File.OpenRead(csvPath));
 
             while (!reader.EndOfStream)
             {
