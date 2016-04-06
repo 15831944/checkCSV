@@ -27,6 +27,7 @@ namespace checkCSV
         private string _incastClass;
 
         private string _exportFolderPath;
+        private string _exportElementType; // concrete vs steel
 
         private int _rb_filter;
 
@@ -53,6 +54,12 @@ namespace checkCSV
                 lv_pdf_dir.Columns[0].Width = -2;
                 lv_pdf_dir.Columns[1].Width = -2;
             }
+
+            if (lv_exportedParts.Columns.Count > 0)
+            {
+                lv_exportedParts.Columns[0].Width = -2;
+                lv_exportedParts.Columns[1].Width = -2;
+            }
         }
 
         //LOADING
@@ -68,6 +75,8 @@ namespace checkCSV
             lbl_csv_dir.Text = "Directory: ";
             lbl_pdf_dir.Text = "Directory: ";
             lbl_csv_file.Text = "CSV: None";
+
+            _exportElementType = "Concrete";
 
             rb_update_text();
 
@@ -178,30 +187,7 @@ namespace checkCSV
             else
             {
                 List<ElementData> filtered = new List<ElementData>();
-
-                switch (_rb_filter)
-                {
-                    case 1:
-                        {
-                            filtered = _reportData.allParts.Where(x => x.status == 1).ToList();
-                            break;
-                        }
-                    case 2:
-                        {
-                            filtered = _reportData.allParts.Where(x => x.status == 2).ToList();
-                            break;
-                        }
-                    case 3:
-                        {
-                            filtered = _reportData.allParts.Where(x => x.status == 3).ToList();
-                            break;
-                        }
-                    case 4:
-                        {
-                            filtered = _reportData.allParts.Where(x => x.status == 4).ToList();
-                            break;
-                        }
-                }
+                filtered = _reportData.allParts.Where(x => x.status == _rb_filter).ToList();
 
                 foreach (ElementData part in filtered)
                 {
@@ -213,26 +199,26 @@ namespace checkCSV
         private void addPartToList(ElementData part)
         {
             lv_csv_results.Items.Add(part.ToString()).SubItems.Add(part.drawingPath);
-            colorOfField(part);
+            lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = colorOfField(part);
         }
 
-        private void colorOfField(ElementData part)
+        private Color colorOfField(ElementData part)
         {
             if (part.status == 1)
             {
-                lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = Color.LimeGreen;
+                 return Color.LimeGreen;
             }
             else if (part.status == 2)
             {
-                lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = Color.Red;
+                return Color.Red;
             }
             else if (part.status == 3)
             {
-                lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = Color.Yellow;
+                return Color.Yellow;
             }
             else
             {
-                lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = Color.Cyan;
+                return Color.Cyan;
             }
         }
 
@@ -249,7 +235,8 @@ namespace checkCSV
 
             foreach (string csv in _csvFiles)
             {
-                csvFileNames.Add(Path.GetFileNameWithoutExtension(csv));
+                string name = Path.GetFileNameWithoutExtension(csv);
+                csvFileNames.Add(name);
             }
 
             lib_csv_dir.DataSource = csvFileNames;
@@ -282,7 +269,9 @@ namespace checkCSV
 
         private void lib_csv_files_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _reportData = new ElementDataGroup();
             lv_csv_results.Clear();
+            lv_exportedParts.Clear();
             rb_disable_buttons();
 
             if (lib_csv_dir.SelectedItem != null)
@@ -409,9 +398,55 @@ namespace checkCSV
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
-            if (_reportData.allParts.Where(x => x.status == 1).ToList().Count > 0)
+            List<ElementData> toExportParts = _reportData.allMainParts.Where(x => x.status == 1).ToList();
+
+            lb_number_of_export.Text = toExportParts.Count.ToString() + @"   (no *ID)";
+
+            if (toExportParts.Count > 0)
             {
-                //panel_export.Enabled = true;
+                panel_export.Enabled = true;
+                update_export_list_values(toExportParts);
+            }
+            else
+            {
+                panel_export.Enabled = false;
+            }
+        }
+
+        private void update_export_list_values(List<ElementData> toExportParts)
+        {
+            lv_exportedParts.Clear();
+            lv_exportedParts.Columns.Add("Name");
+            lv_exportedParts.Columns.Add("Path");
+
+            foreach (ElementData part in toExportParts)
+            {
+                lv_exportedParts.Items.Add(part.ToString()).SubItems.Add(part.drawingPath);
+                lv_exportedParts.Items[lv_exportedParts.Items.Count - 1].BackColor = colorOfField(part);
+            }
+
+            lv_exportedParts.Columns[0].Width = -2;
+            lv_exportedParts.Columns[1].Width = -2;
+        }
+
+        private void btn_create_folders_Click(object sender, EventArgs e)
+        {
+            List<ElementData> exportParts = new List<ElementData>();
+            exportParts = _reportData.allMainParts.Where(x => x.status == 1).ToList();
+            exportModule export = new exportModule(_exportFolderPath, _exportElementType);
+
+            export.main(exportParts);
+        }
+
+        private void rb_concrete_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb_concrete.Checked == true)
+            {
+                _exportElementType = "Concrete";
+            }
+            else
+            {
+                _exportElementType = "Steel";
             }
         }
     }

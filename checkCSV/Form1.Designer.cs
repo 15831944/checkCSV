@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tab_results = new System.Windows.Forms.TabPage();
+            this.rb_status_4 = new System.Windows.Forms.RadioButton();
             this.rb_status_3 = new System.Windows.Forms.RadioButton();
             this.rb_status_2 = new System.Windows.Forms.RadioButton();
             this.rb_status_1 = new System.Windows.Forms.RadioButton();
@@ -39,6 +40,14 @@
             this.lbl_csv_file = new System.Windows.Forms.Label();
             this.btn_check_csv = new System.Windows.Forms.Button();
             this.txt_incastClass = new System.Windows.Forms.TextBox();
+            this.tab_folder = new System.Windows.Forms.TabPage();
+            this.panel_export = new System.Windows.Forms.Panel();
+            this.lv_exportedParts = new System.Windows.Forms.ListView();
+            this.rb_steel = new System.Windows.Forms.RadioButton();
+            this.rb_concrete = new System.Windows.Forms.RadioButton();
+            this.btn_create_folders = new System.Windows.Forms.Button();
+            this.txt_export_target = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.tab_csv = new System.Windows.Forms.TabPage();
             this.lbl_csv_dir = new System.Windows.Forms.Label();
             this.lib_csv_dir = new System.Windows.Forms.ListBox();
@@ -57,28 +66,24 @@
             this.lbl_default_csv_directory = new System.Windows.Forms.Label();
             this.txt_default_pdf_dir = new System.Windows.Forms.TextBox();
             this.txt_default_csv_dir = new System.Windows.Forms.TextBox();
-            this.rb_status_4 = new System.Windows.Forms.RadioButton();
-            this.tab_folder = new System.Windows.Forms.TabPage();
-            this.panel_export = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txt_export_target = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lb_number_of_export = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tab_results.SuspendLayout();
+            this.tab_folder.SuspendLayout();
+            this.panel_export.SuspendLayout();
             this.tab_csv.SuspendLayout();
             this.tab_pdf.SuspendLayout();
             this.tab_settings.SuspendLayout();
-            this.tab_folder.SuspendLayout();
-            this.panel_export.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tab_results);
             this.tabControl1.Controls.Add(this.tab_folder);
-            this.tabControl1.Controls.Add(this.tab_settings);
             this.tabControl1.Controls.Add(this.tab_csv);
             this.tabControl1.Controls.Add(this.tab_pdf);
+            this.tabControl1.Controls.Add(this.tab_settings);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -107,6 +112,19 @@
             this.tab_results.TabIndex = 2;
             this.tab_results.Text = "Results";
             this.tab_results.UseVisualStyleBackColor = true;
+            // 
+            // rb_status_4
+            // 
+            this.rb_status_4.AutoSize = true;
+            this.rb_status_4.Enabled = false;
+            this.rb_status_4.Location = new System.Drawing.Point(389, 104);
+            this.rb_status_4.Name = "rb_status_4";
+            this.rb_status_4.Size = new System.Drawing.Size(86, 17);
+            this.rb_status_4.TabIndex = 11;
+            this.rb_status_4.TabStop = true;
+            this.rb_status_4.Text = "<rb_status4>";
+            this.rb_status_4.UseVisualStyleBackColor = false;
+            this.rb_status_4.CheckedChanged += new System.EventHandler(this.rb_status_4_CheckedChanged);
             // 
             // rb_status_3
             // 
@@ -219,6 +237,101 @@
             this.txt_incastClass.TabIndex = 0;
             this.txt_incastClass.Text = "<incast detail class>";
             this.txt_incastClass.TextChanged += new System.EventHandler(this.txt_incastClass_TextChanged);
+            // 
+            // tab_folder
+            // 
+            this.tab_folder.Controls.Add(this.panel_export);
+            this.tab_folder.Location = new System.Drawing.Point(4, 22);
+            this.tab_folder.Name = "tab_folder";
+            this.tab_folder.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_folder.Size = new System.Drawing.Size(656, 735);
+            this.tab_folder.TabIndex = 4;
+            this.tab_folder.Text = "Export";
+            this.tab_folder.UseVisualStyleBackColor = true;
+            // 
+            // panel_export
+            // 
+            this.panel_export.Controls.Add(this.lb_number_of_export);
+            this.panel_export.Controls.Add(this.label4);
+            this.panel_export.Controls.Add(this.lv_exportedParts);
+            this.panel_export.Controls.Add(this.rb_steel);
+            this.panel_export.Controls.Add(this.rb_concrete);
+            this.panel_export.Controls.Add(this.btn_create_folders);
+            this.panel_export.Controls.Add(this.txt_export_target);
+            this.panel_export.Controls.Add(this.label3);
+            this.panel_export.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_export.Enabled = false;
+            this.panel_export.Location = new System.Drawing.Point(3, 3);
+            this.panel_export.Name = "panel_export";
+            this.panel_export.Size = new System.Drawing.Size(650, 729);
+            this.panel_export.TabIndex = 0;
+            // 
+            // lv_exportedParts
+            // 
+            this.lv_exportedParts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lv_exportedParts.Location = new System.Drawing.Point(0, 88);
+            this.lv_exportedParts.Name = "lv_exportedParts";
+            this.lv_exportedParts.Size = new System.Drawing.Size(650, 612);
+            this.lv_exportedParts.TabIndex = 5;
+            this.lv_exportedParts.UseCompatibleStateImageBehavior = false;
+            this.lv_exportedParts.View = System.Windows.Forms.View.Details;
+            // 
+            // rb_steel
+            // 
+            this.rb_steel.AutoSize = true;
+            this.rb_steel.Enabled = false;
+            this.rb_steel.Location = new System.Drawing.Point(95, 40);
+            this.rb_steel.Name = "rb_steel";
+            this.rb_steel.Size = new System.Drawing.Size(49, 17);
+            this.rb_steel.TabIndex = 4;
+            this.rb_steel.Text = "Steel";
+            this.rb_steel.UseVisualStyleBackColor = true;
+            // 
+            // rb_concrete
+            // 
+            this.rb_concrete.AutoSize = true;
+            this.rb_concrete.Checked = true;
+            this.rb_concrete.Location = new System.Drawing.Point(0, 40);
+            this.rb_concrete.Name = "rb_concrete";
+            this.rb_concrete.Size = new System.Drawing.Size(68, 17);
+            this.rb_concrete.TabIndex = 3;
+            this.rb_concrete.TabStop = true;
+            this.rb_concrete.Text = "Concrete";
+            this.rb_concrete.UseVisualStyleBackColor = true;
+            this.rb_concrete.CheckedChanged += new System.EventHandler(this.rb_concrete_CheckedChanged);
+            // 
+            // btn_create_folders
+            // 
+            this.btn_create_folders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_create_folders.Location = new System.Drawing.Point(0, 706);
+            this.btn_create_folders.Name = "btn_create_folders";
+            this.btn_create_folders.Size = new System.Drawing.Size(650, 23);
+            this.btn_create_folders.TabIndex = 2;
+            this.btn_create_folders.Text = "Copy drawings to location";
+            this.btn_create_folders.UseVisualStyleBackColor = true;
+            this.btn_create_folders.Click += new System.EventHandler(this.btn_create_folders_Click);
+            // 
+            // txt_export_target
+            // 
+            this.txt_export_target.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_export_target.Location = new System.Drawing.Point(0, 16);
+            this.txt_export_target.Name = "txt_export_target";
+            this.txt_export_target.Size = new System.Drawing.Size(650, 20);
+            this.txt_export_target.TabIndex = 1;
+            this.txt_export_target.TextChanged += new System.EventHandler(this.txt_export_target_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(-3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Target directory";
             // 
             // tab_csv
             // 
@@ -422,71 +535,24 @@
             this.txt_default_csv_dir.TabIndex = 0;
             this.txt_default_csv_dir.TextChanged += new System.EventHandler(this.txt_default_csv_directory_TextChanged);
             // 
-            // rb_status_4
+            // label4
             // 
-            this.rb_status_4.AutoSize = true;
-            this.rb_status_4.Enabled = false;
-            this.rb_status_4.Location = new System.Drawing.Point(389, 104);
-            this.rb_status_4.Name = "rb_status_4";
-            this.rb_status_4.Size = new System.Drawing.Size(86, 17);
-            this.rb_status_4.TabIndex = 11;
-            this.rb_status_4.TabStop = true;
-            this.rb_status_4.Text = "<rb_status4>";
-            this.rb_status_4.UseVisualStyleBackColor = false;
-            this.rb_status_4.CheckedChanged += new System.EventHandler(this.rb_status_4_CheckedChanged);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(0, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(196, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Number of elements that can be copied:";
             // 
-            // tab_folder
+            // lb_number_of_export
             // 
-            this.tab_folder.Controls.Add(this.panel_export);
-            this.tab_folder.Location = new System.Drawing.Point(4, 22);
-            this.tab_folder.Name = "tab_folder";
-            this.tab_folder.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_folder.Size = new System.Drawing.Size(656, 735);
-            this.tab_folder.TabIndex = 4;
-            this.tab_folder.Text = "Foldering";
-            this.tab_folder.UseVisualStyleBackColor = true;
-            // 
-            // panel_export
-            // 
-            this.panel_export.Controls.Add(this.button1);
-            this.panel_export.Controls.Add(this.txt_export_target);
-            this.panel_export.Controls.Add(this.label3);
-            this.panel_export.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_export.Enabled = false;
-            this.panel_export.Location = new System.Drawing.Point(3, 3);
-            this.panel_export.Name = "panel_export";
-            this.panel_export.Size = new System.Drawing.Size(650, 729);
-            this.panel_export.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(-3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Target directory";
-            // 
-            // txt_export_target
-            // 
-            this.txt_export_target.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_export_target.Location = new System.Drawing.Point(0, 16);
-            this.txt_export_target.Name = "txt_export_target";
-            this.txt_export_target.Size = new System.Drawing.Size(650, 20);
-            this.txt_export_target.TabIndex = 1;
-            this.txt_export_target.TextChanged += new System.EventHandler(this.txt_export_target_TextChanged);
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(0, 41);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(650, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Copy drawings to location";
-            this.button1.UseVisualStyleBackColor = true;
+            this.lb_number_of_export.AutoSize = true;
+            this.lb_number_of_export.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.lb_number_of_export.Location = new System.Drawing.Point(202, 67);
+            this.lb_number_of_export.Name = "lb_number_of_export";
+            this.lb_number_of_export.Size = new System.Drawing.Size(142, 13);
+            this.lb_number_of_export.TabIndex = 7;
+            this.lb_number_of_export.Text = "<lbl_number_of_export>";
             // 
             // Form1
             // 
@@ -504,15 +570,15 @@
             this.tabControl1.ResumeLayout(false);
             this.tab_results.ResumeLayout(false);
             this.tab_results.PerformLayout();
+            this.tab_folder.ResumeLayout(false);
+            this.panel_export.ResumeLayout(false);
+            this.panel_export.PerformLayout();
             this.tab_csv.ResumeLayout(false);
             this.tab_csv.PerformLayout();
             this.tab_pdf.ResumeLayout(false);
             this.tab_pdf.PerformLayout();
             this.tab_settings.ResumeLayout(false);
             this.tab_settings.PerformLayout();
-            this.tab_folder.ResumeLayout(false);
-            this.panel_export.ResumeLayout(false);
-            this.panel_export.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -553,7 +619,12 @@
         private System.Windows.Forms.Panel panel_export;
         private System.Windows.Forms.TextBox txt_export_target;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_create_folders;
+        private System.Windows.Forms.RadioButton rb_steel;
+        private System.Windows.Forms.RadioButton rb_concrete;
+        private System.Windows.Forms.ListView lv_exportedParts;
+        private System.Windows.Forms.Label lb_number_of_export;
+        private System.Windows.Forms.Label label4;
     }
 }
 

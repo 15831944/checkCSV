@@ -17,6 +17,11 @@ namespace checkCSV
             List<ArrayList> data = new List<ArrayList>();
             StreamReader reader = null;
 
+            if (incastClass == "")
+            {
+                incastClass = "_NONE_";
+            }
+
             try
             {
                 reader = new StreamReader(File.OpenRead(csvPath));
@@ -24,12 +29,12 @@ namespace checkCSV
             }
             catch (IOException)
             {
-                MessageBox.Show("Viga - 4a\n" + "csv on avatud teise programmi poolt?");
+                MessageBox.Show("Viga - 4\n" + "csv peab olema kinni.");
                 
             }
             catch
             {
-                MessageBox.Show("Viga - 4b");
+                MessageBox.Show("Viga - 4");
             }
             finally
             {
