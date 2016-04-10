@@ -45,7 +45,7 @@ namespace checkCSV
             }
             catch (DirectoryNotFoundException)
             {
-                MessageBox.Show("PDF Directory Not Found");
+                MessageBox.Show("PDF/DWG Directory Not Found");
             }
             catch
             {

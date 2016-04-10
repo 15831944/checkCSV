@@ -42,6 +42,8 @@
             this.txt_incastClass = new System.Windows.Forms.TextBox();
             this.tab_folder = new System.Windows.Forms.TabPage();
             this.panel_export = new System.Windows.Forms.Panel();
+            this.lb_number_of_export = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.lv_exportedParts = new System.Windows.Forms.ListView();
             this.rb_steel = new System.Windows.Forms.RadioButton();
             this.rb_concrete = new System.Windows.Forms.RadioButton();
@@ -66,8 +68,6 @@
             this.lbl_default_csv_directory = new System.Windows.Forms.Label();
             this.txt_default_pdf_dir = new System.Windows.Forms.TextBox();
             this.txt_default_csv_dir = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lb_number_of_export = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tab_results.SuspendLayout();
             this.tab_folder.SuspendLayout();
@@ -266,6 +266,25 @@
             this.panel_export.Size = new System.Drawing.Size(650, 729);
             this.panel_export.TabIndex = 0;
             // 
+            // lb_number_of_export
+            // 
+            this.lb_number_of_export.AutoSize = true;
+            this.lb_number_of_export.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.lb_number_of_export.Location = new System.Drawing.Point(202, 67);
+            this.lb_number_of_export.Name = "lb_number_of_export";
+            this.lb_number_of_export.Size = new System.Drawing.Size(142, 13);
+            this.lb_number_of_export.TabIndex = 7;
+            this.lb_number_of_export.Text = "<lbl_number_of_export>";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(0, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(196, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Number of elements that can be copied:";
+            // 
             // lv_exportedParts
             // 
             this.lv_exportedParts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -401,7 +420,7 @@
             this.tab_pdf.Padding = new System.Windows.Forms.Padding(3);
             this.tab_pdf.Size = new System.Drawing.Size(656, 735);
             this.tab_pdf.TabIndex = 1;
-            this.tab_pdf.Text = "PDF";
+            this.tab_pdf.Text = "PDF / DWG";
             this.tab_pdf.UseVisualStyleBackColor = true;
             // 
             // lv_pdf_dir
@@ -435,7 +454,7 @@
             this.btn_checkPDF.Name = "btn_checkPDF";
             this.btn_checkPDF.Size = new System.Drawing.Size(650, 23);
             this.btn_checkPDF.TabIndex = 1;
-            this.btn_checkPDF.Text = "check PDF directory";
+            this.btn_checkPDF.Text = "check PDF / DWG directory";
             this.btn_checkPDF.UseVisualStyleBackColor = true;
             this.btn_checkPDF.Click += new System.EventHandler(this.btn_check_pdf_dir_Click);
             // 
@@ -502,9 +521,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(0, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 13);
+            this.label1.Size = new System.Drawing.Size(146, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Default PDF directory";
+            this.label1.Text = "Default PDF / DWG directory";
             // 
             // lbl_default_csv_directory
             // 
@@ -534,25 +553,6 @@
             this.txt_default_csv_dir.Size = new System.Drawing.Size(650, 20);
             this.txt_default_csv_dir.TabIndex = 0;
             this.txt_default_csv_dir.TextChanged += new System.EventHandler(this.txt_default_csv_directory_TextChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(0, 67);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(196, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Number of elements that can be copied:";
-            // 
-            // lb_number_of_export
-            // 
-            this.lb_number_of_export.AutoSize = true;
-            this.lb_number_of_export.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.lb_number_of_export.Location = new System.Drawing.Point(202, 67);
-            this.lb_number_of_export.Name = "lb_number_of_export";
-            this.lb_number_of_export.Size = new System.Drawing.Size(142, 13);
-            this.lb_number_of_export.TabIndex = 7;
-            this.lb_number_of_export.Text = "<lbl_number_of_export>";
             // 
             // Form1
             // 

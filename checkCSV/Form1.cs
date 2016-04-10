@@ -15,12 +15,6 @@ namespace checkCSV
 {
     public partial class Form1 : Form
     {
-        //defaults
-        private string _defaultCSVdir;
-        private string _defaultPDFdir;
-        private string _defaultIncastClass;
-
-        //active
         private string _csvFolderPath;
         private string _pdfFolderPath;
         private string _csvFilePath;
@@ -87,7 +81,6 @@ namespace checkCSV
             }
         }
 
-
         //TEXT
         private void txt_incastClass_TextChanged(object sender, EventArgs e)
         {
@@ -126,6 +119,23 @@ namespace checkCSV
             }
         }
 
+        private void txt_default_csv_directory_TextChanged(object sender, EventArgs e)
+        {
+            _csvFolderPath = txt_default_csv_dir.Text;
+            txt_csv_dir.Text = _csvFolderPath;
+        }
+
+        private void txt_default_pdf_dir_TextChanged(object sender, EventArgs e)
+        {
+            _pdfFolderPath = txt_default_pdf_dir.Text;
+            txt_pdf_dir.Text = _pdfFolderPath;
+        }
+
+        private void txt_default_incast_class_TextChanged(object sender, EventArgs e)
+        {
+            _incastClass = txt_default_incast_class.Text;
+            txt_incastClass.Text = _incastClass;
+        }
 
         //BUTTON
         private void btn_check_csv_Click(object sender, EventArgs e)
@@ -139,7 +149,6 @@ namespace checkCSV
             rb_enable_buttons();
         }
 
-
         private void btn_check_csv_dir_Click(object sender, EventArgs e)
         {
             checkCSVdir();
@@ -152,9 +161,8 @@ namespace checkCSV
 
         private void btn_save_defaults_Click(object sender, EventArgs e)
         {
-            defaultSettings.writeDefaultDirectorys(_defaultCSVdir, _defaultPDFdir, _defaultIncastClass);
+            defaultSettings.writeDefaultDirectorys(_csvFolderPath, _pdfFolderPath, _incastClass);
         }
-
 
         //ListBox
         private void status_list_update()
@@ -167,7 +175,6 @@ namespace checkCSV
 
             lv_csv_results.Columns[0].Width = -2;
             lv_csv_results.Columns[1].Width = -2;
-
         }
 
         private void update_list_values()
@@ -279,22 +286,6 @@ namespace checkCSV
                 _csvFilePath = _csvFolderPath + lib_csv_dir.SelectedItem + ".csv";
                 lbl_csv_file.Text = "CSV: " + lib_csv_dir.SelectedItem + ".csv";
             }
-        }
-
-        //SETTINGS
-        private void txt_default_csv_directory_TextChanged(object sender, EventArgs e)
-        {
-            _defaultCSVdir = txt_default_csv_dir.Text;
-        }
-
-        private void txt_default_pdf_dir_TextChanged(object sender, EventArgs e)
-        {
-            _defaultPDFdir = txt_default_pdf_dir.Text;
-        }
-
-        private void txt_default_incast_class_TextChanged(object sender, EventArgs e)
-        {
-            _defaultIncastClass = txt_default_incast_class.Text;
         }
 
         private void rb_status_0_CheckedChanged(object sender, EventArgs e)
