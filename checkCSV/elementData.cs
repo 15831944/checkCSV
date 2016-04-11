@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.IO;
+
 namespace checkCSV
 {
     class ElementData
@@ -15,7 +17,7 @@ namespace checkCSV
 
         public int status;
 
-        public string drawingPath;
+        public string drawingPath = null;
 
         public List<ElementData> specialDetails = new List<ElementData>();
         public List<ElementData> mainParts = new List<ElementData>();
@@ -49,7 +51,25 @@ namespace checkCSV
 
         public void setDrawing(string path)
         {
-            drawingPath = path;
+            if (String.IsNullOrEmpty(drawingPath))
+            {
+                drawingPath = path;
+            }
+            else
+            {
+                DateTime currentPath = File.GetCreationTime(drawingPath);
+                DateTime newPath = File.GetCreationTime(path);
+
+                if (newPath > currentPath)
+                {
+                    drawingPath = path;
+                }
+            }
+        }
+
+        public bool hasDrawing()
+        {
+            return !(String.IsNullOrEmpty(drawingPath));
         }
 
         public override string ToString()
