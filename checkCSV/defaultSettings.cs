@@ -11,11 +11,12 @@ namespace checkCSV
 {
     static class defaultSettings
     {
-        public static bool readDefaultDirectorys(out string csv, out string pdf, out string incastClass)
+        public static bool readDefaultDirectorys(out string csv, out string pdf, out string dwg, out string incastClass)
         {
             string fileName = @"checkCSV_settings.dat";
-            csv = @"C:\Users\aleksandr.ess\Dropbox\CODE\UPB_csv\";
-            pdf = @"C:\Users\aleksandr.ess\Dropbox\CODE\UPB_csv\";
+            csv = null;
+            pdf = null;
+            dwg = null;
             incastClass = "891";
 
             if (File.Exists(fileName))
@@ -26,7 +27,8 @@ namespace checkCSV
 
                     csv = readText[0];
                     pdf = readText[1];
-                    incastClass = readText[2];
+                    dwg = readText[2];
+                    incastClass = readText[3];
 
                     return true;
                 }
@@ -39,12 +41,12 @@ namespace checkCSV
             return false;
         }
 
-        public static void writeDefaultDirectorys(string csv, string pdf, string incastClass)
+        public static string writeDefaultDirectorys(string csv, string pdf, string dwg, string incastClass)
         {
             try
             {
                 string fileName = @"checkCSV_settings.dat";
-                string[] values = { csv, pdf, incastClass };
+                string[] values = { csv, pdf, dwg, incastClass };
 
                 if (File.Exists(fileName))
                 {
@@ -53,11 +55,11 @@ namespace checkCSV
 
                 File.WriteAllLines(fileName, values);
 
-                MessageBox.Show("Settings file saved");
+                return "Settings file saved";
             }
             catch
             {
-                MessageBox.Show("Viga - 3");
+                return "ERROR";
             }
         }
     }

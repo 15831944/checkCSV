@@ -11,29 +11,39 @@ namespace checkCSV
 {
     class ElementDataGroup
     {
-        public int total;
-        public int status_ok;
-        public int status_missing;
-        public int status_not_set;
-        public int status_not_set_has_drawing;
-
         public List<ElementData> allMainParts;
         public List<ElementData> allSpecialParts;
         public List<ElementData> allParts;
+
+        public List<ArrayList> _raw;
         public List<string> _pdf;
+        public List<string> _dwg;
+
+        public ElementDataGroup(List<ArrayList> raw, List<string> pdf, List<string> dwg)
+        {
+            allMainParts = new List<ElementData>();
+            allSpecialParts = new List<ElementData>();
+            allParts = new List<ElementData>();
+
+            _raw = raw;
+            _pdf = pdf;
+            _dwg = dwg;
+        }
 
         public ElementDataGroup()
         {
             allMainParts = new List<ElementData>();
             allSpecialParts = new List<ElementData>();
             allParts = new List<ElementData>();
+
+            _raw = new List<ArrayList>();
+            _pdf = new List<string>();
+            _dwg = new List<string>();
         }
 
-        public void buildData(List<ArrayList> raw, List<string> pdf)
+        public void buildData()
         {
-            _pdf = pdf;
-
-            foreach (ArrayList element in raw)
+            foreach (ArrayList element in _raw)
             {
                 if ((bool)element[0] == true)
                 {
@@ -74,13 +84,6 @@ namespace checkCSV
 
         public void findDrawings()
         {
-            //SEDA V6IKS 2RA KAOTADA!
-            total = allParts.Count;
-            status_ok = 0;
-            status_missing = 0;
-            status_not_set = 0;
-            status_not_set_has_drawing = 0;
-
             foreach (ElementData main in allMainParts)
             {
                 setStatusLogic(main);
@@ -110,23 +113,7 @@ namespace checkCSV
                 }
             }
 
-            //SEDA V6IKS LIIGUTADA ELEMENTDATA ALLA
-            if (part.set == true && part.hasDrawing())
-            {
-                part.setStatus(1); status_ok++;
-            }
-            else if (part.set == false && part.hasDrawing())
-            {
-                part.setStatus(4);  status_not_set_has_drawing++;
-            }
-            else if (part.set == true)
-            {
-                part.setStatus(2); status_missing++;
-            }
-            else
-            {
-                part.setStatus(3); status_not_set++;
-            }
+            part.setStatus();
         }
     }
 } 

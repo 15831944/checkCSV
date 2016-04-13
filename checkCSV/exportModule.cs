@@ -40,7 +40,7 @@ namespace checkCSV
                 string fileName = Path.GetFileName(part.drawingPath);
 
                 string prefix = part.fullName.Split('-')[0];
-                string targetLocation = _path + _elementType + @"\" + prefix + @"\pdf\";
+                string targetLocation = _path + @"\" + _elementType + @"\" + prefix + @"\pdf\";
 
                 string targetFile = System.IO.Path.Combine(targetLocation, fileName);
 

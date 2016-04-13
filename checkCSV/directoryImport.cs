@@ -11,41 +11,30 @@ namespace checkCSV
 {
     static class directoryImport
     {
-        public static List<string> importCSVdir(string csvPath)
+
+        public static List<string> importDirFiles(string path, string ext, bool all)
         {
             List<string> files = new List<string>();
 
-            try
+            if (String.IsNullOrEmpty(path))
             {
-                files = importer(csvPath, "*.csv");
+                return files;
             }
-            catch (DirectoryNotFoundException)
-            {
-                MessageBox.Show("CSV Directory Not Found");
-            }
-            catch
-            {
-                MessageBox.Show("Viga - 1");
-            }
-
-            files.Sort();
-
-            return files;
-        }
-
-
-
-        public static List<string> importPDFdir(string path)
-        {
-            List<string> files = new List<string>();
 
             try
             {
-                files = importerer(path);
+                if (all)
+                {
+                    files = importerer(path, ext);
+                }
+                else
+                {
+                    files = importer(path, ext);
+                }
             }
             catch (DirectoryNotFoundException)
             {
-                MessageBox.Show("PDF/DWG Directory Not Found");
+                MessageBox.Show("Directory Not Found");
             }
             catch
             {
@@ -57,7 +46,7 @@ namespace checkCSV
             return files;
         }
 
-        private static List<string> importerer(string path)
+        private static List<string> importerer(string path, string ext)
         {
             List<string> files = new List<string>();
 
@@ -66,11 +55,11 @@ namespace checkCSV
                 string[] subDir = Directory.GetDirectories(path);
                 foreach (string newPath in subDir)
                 {
-                    files.AddRange(directoryImport.importerer(newPath));
+                    files.AddRange(directoryImport.importerer(newPath, ext));
                 }
             }
 
-            files.AddRange(importer(path, "*.pdf"));
+            files.AddRange(importer(path, ext));
 
             return files;
         }
@@ -83,7 +72,6 @@ namespace checkCSV
 
             foreach (string file in importFiles)
             {
-                //string name = Path.GetFileNameWithoutExtension(file);
                 files.Add(file);
             }
 

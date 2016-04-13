@@ -17,18 +17,32 @@ namespace checkCSV
     {
         private string _csvFolderPath;
         private string _pdfFolderPath;
+        private string _dwgFolderPath;
+
         private string _csvFilePath;
         private string _incastClass;
+        private string _drawingType;
+        private int _reportFilter;
 
         private string _exportFolderPath;
         private string _exportElementType; // concrete vs steel
 
-        private int _rb_filter;
-
-        List<string> _csvFiles = new List<string>();
-        List<string> _pdfFiles = new List<string>();
-
         ElementDataGroup _reportData = new ElementDataGroup();
+
+        public enum ExportType
+        {
+            Concrete = 1, Incast_Details, Steel
+        }
+
+        public enum StatusFilter
+        {
+            ALL, OK, Missing, Not_Set, Not_Set_Has_Drawings
+        }
+
+        public enum DrawingFinder
+        {
+            PDF_DWG, PDF, DWG
+        }
 
         public Form1()
         {
@@ -59,25 +73,26 @@ namespace checkCSV
         //LOADING
         private void Form1_Load(object sender, EventArgs e)
         {
-            bool hasSettings = defaultSettings.readDefaultDirectorys(out _csvFolderPath, out _pdfFolderPath, out _incastClass);
+            bool hasSettings = defaultSettings.readDefaultDirectorys(out _csvFolderPath, out _pdfFolderPath, out _dwgFolderPath, out _incastClass);
 
             txt_csv_dir.Text = _csvFolderPath;
             txt_pdf_dir.Text = _pdfFolderPath;
+            txt_dwg_dir.Text = _dwgFolderPath;
             txt_incastClass.Text = _incastClass;
-            txt_export_target.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\";
+            txt_export_target.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-            lbl_csv_dir.Text = "Directory: ";
-            lbl_pdf_dir.Text = "Directory: ";
-            lbl_csv_file.Text = "CSV: None";
+            cb_exportType.DataSource = Enum.GetValues(typeof(ExportType));
+            cb_drawing_type.DataSource = Enum.GetValues(typeof(DrawingFinder));
+            cb_filter_results_type.DataSource = Enum.GetValues(typeof(StatusFilter));
 
-            _exportElementType = "Concrete";
+            lbl_csv_file_main.Text = "CSV: None";
+            lbl_save_defaults_status.Text = "[" + DateTime.Now.ToString("h:mm:ss") + "]";
 
-            rb_update_text();
-
+            report_labels_update();
             if (hasSettings)
             {
-                checkCSVdir();
-                checkPDFdir();
+                checkReportdir();
+                checkDrawingDir();
             }
         }
 
@@ -91,32 +106,31 @@ namespace checkCSV
         private void txt_export_target_TextChanged(object sender, EventArgs e)
         {
             _exportFolderPath = txt_export_target.Text;
-            if (!_exportFolderPath.EndsWith(@"\"))
-            {
-                _exportFolderPath = _exportFolderPath + @"\";
-            }
+            _exportFolderPath = ABI.hasDashAtEnd(_exportFolderPath);
         }
 
         private void txt_csv_dir_TextChanged(object sender, EventArgs e)
         {
             _csvFolderPath = txt_csv_dir.Text;
-            txt_default_csv_dir.Text = _csvFolderPath;
+            _csvFolderPath = ABI.hasDashAtEnd(_csvFolderPath);
 
-            if (!_csvFolderPath.EndsWith(@"\"))
-            {
-                _csvFolderPath = _csvFolderPath + @"\";
-            }
+            txt_default_csv_dir.Text = _csvFolderPath;
         }
 
         private void txt_pdf_dir_TextChanged(object sender, EventArgs e)
         {
             _pdfFolderPath = txt_pdf_dir.Text;
-            txt_default_pdf_dir.Text = _pdfFolderPath;
+            _pdfFolderPath = ABI.hasDashAtEnd(_pdfFolderPath);
 
-            if (!_pdfFolderPath.EndsWith(@"\"))
-            {
-                _pdfFolderPath = _pdfFolderPath + @"\";
-            }
+            txt_default_pdf_dir.Text = _pdfFolderPath;
+        }
+
+        private void txt_dwg_dir_TextChanged(object sender, EventArgs e)
+        {
+            _dwgFolderPath = txt_dwg_dir.Text;
+            _dwgFolderPath = ABI.hasDashAtEnd(_dwgFolderPath);
+
+            txt_default_dwg_dir.Text = _dwgFolderPath;
         }
 
         private void txt_default_csv_directory_TextChanged(object sender, EventArgs e)
@@ -131,6 +145,12 @@ namespace checkCSV
             txt_pdf_dir.Text = _pdfFolderPath;
         }
 
+        private void txt_default_dwg_dir_TextChanged(object sender, EventArgs e)
+        {
+            _dwgFolderPath = txt_default_dwg_dir.Text;
+            txt_dwg_dir.Text = _dwgFolderPath;
+        }
+
         private void txt_default_incast_class_TextChanged(object sender, EventArgs e)
         {
             _incastClass = txt_default_incast_class.Text;
@@ -141,45 +161,49 @@ namespace checkCSV
         private void btn_check_csv_Click(object sender, EventArgs e)
         {
             List<ArrayList> parsedData = csvFileReader.importCSV(_csvFilePath, _incastClass);
-            _reportData = new ElementDataGroup();
-            _reportData.buildData(parsedData, _pdfFiles);
+            List<string> _pdfFiles = directoryImport.importDirFiles(_pdfFolderPath, "*.pdf", true);
+            List<string> _dwgFiles = directoryImport.importDirFiles(_dwgFolderPath, "*.dwg", true);
+
+            _reportData = new ElementDataGroup(parsedData, _pdfFiles, _dwgFiles);
+            _reportData.buildData();
             _reportData.findDrawings();
 
-            status_list_update();
-            rb_enable_buttons();
+            report_labels_update();
+            report_list_update();
         }
 
         private void btn_check_csv_dir_Click(object sender, EventArgs e)
         {
-            checkCSVdir();
+            checkReportdir();
         }
 
         private void btn_check_pdf_dir_Click(object sender, EventArgs e)
         {
-            checkPDFdir();
+            checkDrawingDir();
         }
 
         private void btn_save_defaults_Click(object sender, EventArgs e)
         {
-            defaultSettings.writeDefaultDirectorys(_csvFolderPath, _pdfFolderPath, _incastClass);
+            string save_status = defaultSettings.writeDefaultDirectorys(_csvFolderPath, _pdfFolderPath, _dwgFolderPath, _incastClass);
+            lbl_save_defaults_status.Text = "[" + DateTime.Now.ToString("h:mm:ss") + "] " + save_status;
         }
 
         //ListBox
-        private void status_list_update()
+        private void report_list_update()
         {
             lv_csv_results.Clear();
             lv_csv_results.Columns.Add("Name");
             lv_csv_results.Columns.Add("Path");
 
-            update_list_values();
+            update_main_list_values();
 
             lv_csv_results.Columns[0].Width = -2;
             lv_csv_results.Columns[1].Width = -2;
         }
 
-        private void update_list_values()
+        private void update_main_list_values()
         {
-            if (_rb_filter == 0)
+            if (_reportFilter == 0)
             {
                 foreach (ElementData main in _reportData.allMainParts)
                 {
@@ -194,7 +218,7 @@ namespace checkCSV
             else
             {
                 List<ElementData> filtered = new List<ElementData>();
-                filtered = _reportData.allParts.Where(x => x.status == _rb_filter).ToList();
+                filtered = _reportData.allParts.Where(x => x.status == _reportFilter).ToList();
 
                 foreach (ElementData part in filtered)
                 {
@@ -205,42 +229,17 @@ namespace checkCSV
 
         private void addPartToList(ElementData part)
         {
-            lv_csv_results.Items.Add(part.ToString()).SubItems.Add(part.drawingPath);
-            lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = colorOfField(part);
+            string pathShort = part.drawingPath.Replace(_pdfFolderPath, "");
+            lv_csv_results.Items.Add(part.ToString()).SubItems.Add(pathShort);
+            lv_csv_results.Items[lv_csv_results.Items.Count - 1].BackColor = ABI.colorOfField(part);
         }
 
-        private Color colorOfField(ElementData part)
+        private void checkReportdir()
         {
-            if (part.status == 1)
-            {
-                 return Color.LimeGreen;
-            }
-            else if (part.status == 2)
-            {
-                return Color.Red;
-            }
-            else if (part.status == 3)
-            {
-                return Color.Yellow;
-            }
-            else
-            {
-                return Color.Cyan;
-            }
-        }
-
-        private void checkCSVdir()
-        {
-            lbl_csv_dir.Text = "Directory: " + _csvFolderPath;
-            _csvFiles = directoryImport.importCSVdir(_csvFolderPath);
-            update_csv_list();
-        }
-
-        private void update_csv_list()
-        {
+            List<string> csvFiles = directoryImport.importDirFiles(_csvFolderPath, "*.csv", false);
             List<string> csvFileNames = new List<string>();
 
-            foreach (string csv in _csvFiles)
+            foreach (string csv in csvFiles)
             {
                 string name = Path.GetFileNameWithoutExtension(csv);
                 csvFileNames.Add(name);
@@ -250,24 +249,29 @@ namespace checkCSV
             lib_csv_dir.SelectedIndex = csvFileNames.Count - 1;
         }
 
-        private void checkPDFdir()
+        private void checkDrawingDir()
         {
-            lbl_pdf_dir.Text = "Directory: " + _pdfFolderPath;
-            lbl_pdf_dir_main.Text = "PDF: " + _pdfFolderPath;
-            _pdfFiles = directoryImport.importPDFdir(_pdfFolderPath);
-            update_pdf_list();
-        }
+            List<string> pdfFiles = directoryImport.importDirFiles(_pdfFolderPath, "*.pdf", true);
+            List<string> dwgFiles = directoryImport.importDirFiles(_dwgFolderPath, "*.dwg", true);
+            lbl_pdf_dir_main.Text = "PDF:     " + _pdfFolderPath;
+            lbl_dwg_dir_main.Text = "DWG:   " + _pdfFolderPath;
 
-        private void update_pdf_list()
-        {
             lv_pdf_dir.Clear();
             lv_pdf_dir.Columns.Add("Name");
             lv_pdf_dir.Columns.Add("Path");
 
-            foreach (string path in _pdfFiles)
+            foreach (string path in pdfFiles)
             {
                 string name = Path.GetFileNameWithoutExtension(path);
-                lv_pdf_dir.Items.Add(name).SubItems.Add(path);
+                string shortPath = path.Replace(_pdfFolderPath, "");
+                lv_pdf_dir.Items.Add(name).SubItems.Add(shortPath);
+            }
+
+            foreach (string path in dwgFiles)
+            {
+                string name = Path.GetFileNameWithoutExtension(path);
+                string shortPath = path.Replace(_pdfFolderPath, "");
+                lv_pdf_dir.Items.Add(name).SubItems.Add(shortPath);
             }
 
             lv_pdf_dir.Columns[0].Width = -2;
@@ -279,111 +283,11 @@ namespace checkCSV
             _reportData = new ElementDataGroup();
             lv_csv_results.Clear();
             lv_exportedParts.Clear();
-            rb_disable_buttons();
 
             if (lib_csv_dir.SelectedItem != null)
             {
-                _csvFilePath = _csvFolderPath + lib_csv_dir.SelectedItem + ".csv";
-                lbl_csv_file.Text = "CSV: " + lib_csv_dir.SelectedItem + ".csv";
-            }
-        }
-
-        private void rb_status_0_CheckedChanged(object sender, EventArgs e)
-        {
-            rb_set_value();
-            status_list_update();
-        }
-
-        private void rb_status_1_CheckedChanged(object sender, EventArgs e)
-        {
-            rb_set_value();
-            status_list_update();
-        }
-
-        private void rb_status_2_CheckedChanged(object sender, EventArgs e)
-        {
-            rb_set_value();
-            status_list_update();
-        }
-
-        private void rb_status_3_CheckedChanged(object sender, EventArgs e)
-        {
-            rb_set_value();
-            status_list_update();
-        }
-
-        private void rb_status_4_CheckedChanged(object sender, EventArgs e)
-        {
-            rb_set_value();
-            status_list_update();
-        }
-
-        private void rb_enable_buttons()
-        {
-            rb_update_text();
-
-            if (_reportData.total > 0)
-            {
-                rb_status_0.Enabled = true;
-                rb_status_1.Enabled = true;
-                rb_status_1.BackColor = Color.Lime;
-                rb_status_2.Enabled = true;
-                rb_status_2.BackColor = Color.Red;
-                rb_status_3.Enabled = true;
-                rb_status_3.BackColor = Color.Yellow;
-                rb_status_4.Enabled = true;
-                rb_status_4.BackColor = Color.Cyan;
-            }
-        }
-
-        private void rb_disable_buttons()
-        {
-            rb_update_text();
-
-            rb_status_0.Enabled = false;
-            rb_status_1.Enabled = false;
-            rb_status_1.BackColor = Color.Transparent;
-            rb_status_2.Enabled = false;
-            rb_status_2.BackColor = Color.Transparent;
-            rb_status_3.Enabled = false;
-            rb_status_3.BackColor = Color.Transparent;
-            rb_status_4.Enabled = false;
-            rb_status_4.BackColor = Color.Transparent;
-        }
-
-        private void rb_update_text()
-        {
-            rb_status_0.Text = "Total (" + _reportData.total.ToString() + ")";
-            rb_status_1.Text = "OK (" + _reportData.status_ok + ")";
-            rb_status_2.Text = "Missing (" + _reportData.status_missing + ")";
-            rb_status_3.Text = "Not Set (" + _reportData.status_not_set + ")";
-            rb_status_4.Text = "Not Set - has drawing (" + _reportData.status_not_set_has_drawing + ")";
-        }
-
-        private void rb_set_value()
-        {
-            if (rb_status_0.Checked)
-            {
-                _rb_filter = 0;
-            }
-            else if (rb_status_1.Checked)
-            {
-                _rb_filter = 1;
-            }
-
-            else if (rb_status_2.Checked)
-            {
-                _rb_filter = 2;
-            }
-
-            else if (rb_status_3.Checked)
-            {
-                _rb_filter = 3;
-            }
-
-            else if (rb_status_4.Checked)
-            {
-                _rb_filter = 4;
+                _csvFilePath = _csvFolderPath + @"\" + lib_csv_dir.SelectedItem + ".csv";
+                lbl_csv_file_main.Text = "CSV:     " + lib_csv_dir.SelectedItem + ".csv";
             }
         }
 
@@ -412,8 +316,9 @@ namespace checkCSV
 
             foreach (ElementData part in toExportParts)
             {
-                lv_exportedParts.Items.Add(part.ToString()).SubItems.Add(part.drawingPath);
-                lv_exportedParts.Items[lv_exportedParts.Items.Count - 1].BackColor = colorOfField(part);
+                string pathShort = part.drawingPath.Replace(_pdfFolderPath, "");
+                lv_exportedParts.Items.Add(part.ToString()).SubItems.Add(pathShort);
+                lv_exportedParts.Items[lv_exportedParts.Items.Count - 1].BackColor = ABI.colorOfField(part);
             }
 
             lv_exportedParts.Columns[0].Width = -2;
@@ -423,22 +328,36 @@ namespace checkCSV
         private void btn_create_folders_Click(object sender, EventArgs e)
         {
             List<ElementData> exportParts = new List<ElementData>();
-            exportParts = _reportData.allMainParts.Where(x => x.status == 1).ToList();
             exportModule export = new exportModule(_exportFolderPath, _exportElementType);
+
+            exportParts = _reportData.allMainParts.Where(x => x.status == 1).ToList();
 
             export.main(exportParts);
         }
 
-        private void rb_concrete_CheckedChanged(object sender, EventArgs e)
+        private void cb_exportType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (rb_concrete.Checked == true)
-            {
-                _exportElementType = "Concrete";
-            }
-            else
-            {
-                _exportElementType = "Steel";
-            }
+            _exportElementType = cb_exportType.SelectedValue.ToString();
+        }
+
+        private void cb_drawing_type_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _drawingType = cb_drawing_type.SelectedValue.ToString();
+        }
+
+        private void cb_filter_results_type_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _reportFilter = (int)cb_filter_results_type.SelectedValue;
+            report_list_update();
+        }
+
+        private void report_labels_update()
+        {
+            lb_status_0.Text = @"Total: (" + _reportData.allParts.Count.ToString() + @")" ;
+            lb_status_1.Text = "OK: (" + _reportData.allParts.Where(x => x.status == 1).ToList().Count.ToString() + @")";
+            lb_status_2.Text = "Missing: (" + _reportData.allParts.Where(x => x.status == 2).ToList().Count.ToString() + @")";
+            lb_status_3.Text = "Not Set (" + _reportData.allParts.Where(x => x.status == 3).ToList().Count.ToString() + @")";
+            lb_status_4.Text = "Not Set - Has Drawing (" + _reportData.allParts.Where(x => x.status == 4).ToList().Count.ToString() + @")";
         }
     }
 }

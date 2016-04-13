@@ -17,7 +17,7 @@ namespace checkCSV
 
         public int status;
 
-        public string drawingPath = null;
+        public string drawingPath = "";
 
         public List<ElementData> specialDetails = new List<ElementData>();
         public List<ElementData> mainParts = new List<ElementData>();
@@ -44,9 +44,24 @@ namespace checkCSV
             mainParts.Add(part);
         }
 
-        public void setStatus(int i)
+        public void setStatus()
         {
-            status = i;
+            if (set == true && hasDrawing())
+            {
+                status = 1;
+            }
+            else if (set == false && hasDrawing())
+            {
+                status = 4;
+            }
+            else if (set == true)
+            {
+                status = 2;
+            }
+            else
+            {
+                status = 3;
+            }
         }
 
         public void setDrawing(string path)
@@ -84,7 +99,5 @@ namespace checkCSV
             }
             
         }
-
-
     }
 }
