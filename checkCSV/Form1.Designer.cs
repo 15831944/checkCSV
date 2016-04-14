@@ -48,6 +48,7 @@
             this.tab_folder = new System.Windows.Forms.TabPage();
             this.panel_export = new System.Windows.Forms.Panel();
             this.cb_exportType = new System.Windows.Forms.ComboBox();
+            this.cb_exportElementType = new System.Windows.Forms.ComboBox();
             this.lb_number_of_export = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lv_exportedParts = new System.Windows.Forms.ListView();
@@ -200,6 +201,7 @@
             // 
             // label10
             // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(351, 12);
             this.label10.Name = "label10";
@@ -209,6 +211,7 @@
             // 
             // cb_drawing_type
             // 
+            this.cb_drawing_type.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.cb_drawing_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_drawing_type.FormattingEnabled = true;
             this.cb_drawing_type.Location = new System.Drawing.Point(443, 8);
@@ -222,7 +225,7 @@
             this.lbl_dwg_dir_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_dwg_dir_main.AutoSize = true;
-            this.lbl_dwg_dir_main.Location = new System.Drawing.Point(0, 94);
+            this.lbl_dwg_dir_main.Location = new System.Drawing.Point(3, 95);
             this.lbl_dwg_dir_main.Name = "lbl_dwg_dir_main";
             this.lbl_dwg_dir_main.Size = new System.Drawing.Size(100, 13);
             this.lbl_dwg_dir_main.TabIndex = 12;
@@ -247,7 +250,7 @@
             this.lbl_pdf_dir_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_pdf_dir_main.AutoSize = true;
-            this.lbl_pdf_dir_main.Location = new System.Drawing.Point(0, 78);
+            this.lbl_pdf_dir_main.Location = new System.Drawing.Point(3, 78);
             this.lbl_pdf_dir_main.Name = "lbl_pdf_dir_main";
             this.lbl_pdf_dir_main.Size = new System.Drawing.Size(95, 13);
             this.lbl_pdf_dir_main.TabIndex = 7;
@@ -258,7 +261,7 @@
             this.lbl_csv_file_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_csv_file_main.AutoSize = true;
-            this.lbl_csv_file_main.Location = new System.Drawing.Point(0, 61);
+            this.lbl_csv_file_main.Location = new System.Drawing.Point(3, 61);
             this.lbl_csv_file_main.Name = "lbl_csv_file_main";
             this.lbl_csv_file_main.Size = new System.Drawing.Size(99, 13);
             this.lbl_csv_file_main.TabIndex = 5;
@@ -301,6 +304,7 @@
             // panel_export
             // 
             this.panel_export.Controls.Add(this.cb_exportType);
+            this.panel_export.Controls.Add(this.cb_exportElementType);
             this.panel_export.Controls.Add(this.lb_number_of_export);
             this.panel_export.Controls.Add(this.label4);
             this.panel_export.Controls.Add(this.lv_exportedParts);
@@ -321,17 +325,30 @@
             this.cb_exportType.BackColor = System.Drawing.SystemColors.Window;
             this.cb_exportType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_exportType.FormattingEnabled = true;
-            this.cb_exportType.Location = new System.Drawing.Point(0, 42);
+            this.cb_exportType.Location = new System.Drawing.Point(0, 69);
             this.cb_exportType.Name = "cb_exportType";
             this.cb_exportType.Size = new System.Drawing.Size(650, 21);
-            this.cb_exportType.TabIndex = 8;
+            this.cb_exportType.TabIndex = 9;
             this.cb_exportType.SelectedIndexChanged += new System.EventHandler(this.cb_exportType_SelectedIndexChanged);
+            // 
+            // cb_exportElementType
+            // 
+            this.cb_exportElementType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cb_exportElementType.BackColor = System.Drawing.SystemColors.Window;
+            this.cb_exportElementType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_exportElementType.FormattingEnabled = true;
+            this.cb_exportElementType.Location = new System.Drawing.Point(0, 42);
+            this.cb_exportElementType.Name = "cb_exportElementType";
+            this.cb_exportElementType.Size = new System.Drawing.Size(650, 21);
+            this.cb_exportElementType.TabIndex = 8;
+            this.cb_exportElementType.SelectedIndexChanged += new System.EventHandler(this.cb_exportElementType_SelectedIndexChanged);
             // 
             // lb_number_of_export
             // 
             this.lb_number_of_export.AutoSize = true;
             this.lb_number_of_export.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.lb_number_of_export.Location = new System.Drawing.Point(202, 67);
+            this.lb_number_of_export.Location = new System.Drawing.Point(199, 104);
             this.lb_number_of_export.Name = "lb_number_of_export";
             this.lb_number_of_export.Size = new System.Drawing.Size(142, 13);
             this.lb_number_of_export.TabIndex = 7;
@@ -340,7 +357,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(0, 67);
+            this.label4.Location = new System.Drawing.Point(-3, 104);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(196, 13);
             this.label4.TabIndex = 6;
@@ -351,9 +368,9 @@
             this.lv_exportedParts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lv_exportedParts.Location = new System.Drawing.Point(0, 85);
+            this.lv_exportedParts.Location = new System.Drawing.Point(0, 120);
             this.lv_exportedParts.Name = "lv_exportedParts";
-            this.lv_exportedParts.Size = new System.Drawing.Size(650, 613);
+            this.lv_exportedParts.Size = new System.Drawing.Size(650, 578);
             this.lv_exportedParts.TabIndex = 5;
             this.lv_exportedParts.UseCompatibleStateImageBehavior = false;
             this.lv_exportedParts.View = System.Windows.Forms.View.Details;
@@ -543,6 +560,8 @@
             // 
             // txt_pdf_dir
             // 
+            this.txt_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_pdf_dir.Location = new System.Drawing.Point(3, 19);
             this.txt_pdf_dir.Name = "txt_pdf_dir";
             this.txt_pdf_dir.Size = new System.Drawing.Size(650, 20);
@@ -733,7 +752,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel_export;
-        private System.Windows.Forms.ComboBox cb_exportType;
+        private System.Windows.Forms.ComboBox cb_exportElementType;
         private System.Windows.Forms.Label lb_number_of_export;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_create_folders;
@@ -749,6 +768,7 @@
         private System.Windows.Forms.Label lb_status_1;
         private System.Windows.Forms.Label lb_status_0;
         private System.Windows.Forms.Label lb_status_4;
+        private System.Windows.Forms.ComboBox cb_exportType;
     }
 }
 

@@ -82,11 +82,11 @@ namespace checkCSV
             }
         }
 
-        public void findDrawings()
+        public void findDrawings(string drawingType)
         {
             foreach (ElementData main in allMainParts)
             {
-                setStatusLogic(main);
+                setStatusLogic(main, drawingType);
 
                 if (main.set == true)
                 {
@@ -99,21 +99,40 @@ namespace checkCSV
 
             foreach (ElementData special in allSpecialParts)
             {
-                setStatusLogic(special);
+                setStatusLogic(special, drawingType);
+            }
+
+            foreach (ElementData part in allParts)
+            {
+                part.setStatus(drawingType);
             }
         }
 
-        public void setStatusLogic(ElementData part)
+        public void setStatusLogic(ElementData part, string drawingType)
         {
-            foreach (string pdf in _pdf)
+            if (drawingType.Contains("PDF"))
             {
-                if (part.fullName == Path.GetFileNameWithoutExtension(pdf))
+                for (int i = _pdf.Count - 1; i >= 0; i--)
                 {
-                    part.setDrawing(pdf);
+                    if (part.fullName == Path.GetFileNameWithoutExtension(_pdf[i]))
+                    {
+                        part.setPDF(_pdf[i]);
+                        _pdf.RemoveAt(i);
+                    }
                 }
             }
 
-            part.setStatus();
+            if (drawingType.Contains("DWG"))
+            {
+                for (int i = _dwg.Count - 1; i >= 0; i--)
+                {
+                    if (part.fullName == Path.GetFileNameWithoutExtension(_dwg[i]))
+                    {
+                        part.setDWG(_dwg[i]);
+                        _dwg.RemoveAt(i);
+                    }
+                }
+            }
         }
     }
 } 

@@ -16,8 +16,10 @@ namespace checkCSV
         public bool set;
 
         public int status;
+        public string statusMessage = "";
 
-        public string drawingPath = "";
+        public string pdfPath = "";
+        public string dwgPath = "";
 
         public List<ElementData> specialDetails = new List<ElementData>();
         public List<ElementData> mainParts = new List<ElementData>();
@@ -44,47 +46,112 @@ namespace checkCSV
             mainParts.Add(part);
         }
 
-        public void setStatus()
+        public void setStatus(string drawingType)
         {
-            if (set == true && hasDrawing())
+            if (set == true)
             {
-                status = 1;
-            }
-            else if (set == false && hasDrawing())
-            {
-                status = 4;
-            }
-            else if (set == true)
-            {
-                status = 2;
+                if (drawingType == "PDF_DWG" && hasDrawing(pdfPath) && hasDrawing(dwgPath))
+                {
+                    status = 1;
+                    statusMessage = "[OK]";
+                }
+                else if (drawingType == "PDF" && hasDrawing(pdfPath))
+                {
+                    status = 1;
+                    statusMessage = "[OK]";
+                }
+                else if (drawingType == "DWG" && hasDrawing(dwgPath))
+                {
+                    status = 1;
+                    statusMessage = "[OK]";
+                }
+                else
+                {
+                    status = 2;
+                    statusMessage = "Missing ";
+                    if (drawingType.Contains("PDF") && !hasDrawing(pdfPath))
+                    {
+                        statusMessage += "PDF ";
+                    }
+                    if (drawingType.Contains("DWG") && !hasDrawing(dwgPath))
+                    {
+                        statusMessage += "DWG ";
+                    }
+                }
+                
             }
             else
             {
                 status = 3;
-            }
-        }
+                statusMessage = "[Not set]";
 
-        public void setDrawing(string path)
-        {
-            if (String.IsNullOrEmpty(drawingPath))
-            {
-                drawingPath = path;
-            }
-            else
-            {
-                DateTime currentPath = File.GetCreationTime(drawingPath);
-                DateTime newPath = File.GetCreationTime(path);
-
-                if (newPath > currentPath)
+                if (drawingType == "PDF" && hasDrawing(pdfPath))
                 {
-                    drawingPath = path;
+                    status = 4;
+                    statusMessage += " Found PDF";
+                }
+
+                if (drawingType == "DWG" && hasDrawing(dwgPath))
+                {
+                    status = 4;
+                    statusMessage += " Found DWG";
+                }
+
+                if (drawingType == "PDF_DWG")
+                {
+                    if (hasDrawing(pdfPath))
+                    {
+                        status = 4;
+                        statusMessage += " Found PDF";
+                    }
+                    if (hasDrawing(dwgPath))
+                    {
+                        status = 4;
+                        statusMessage += " Found DWG";
+                    }
                 }
             }
         }
 
-        public bool hasDrawing()
+        public void setPDF(string path)
         {
-            return !(String.IsNullOrEmpty(drawingPath));
+            if (String.IsNullOrEmpty(pdfPath))
+            {
+                pdfPath = path;
+            }
+            else
+            {
+                DateTime currentPath = File.GetCreationTime(pdfPath);
+                DateTime newPath = File.GetCreationTime(path);
+
+                if (newPath > currentPath)
+                {
+                    pdfPath = path;
+                }
+            }
+        }
+
+        public void setDWG(string path)
+        {
+            if (String.IsNullOrEmpty(dwgPath))
+            {
+                dwgPath = path;
+            }
+            else
+            {
+                DateTime currentPath = File.GetCreationTime(dwgPath);
+                DateTime newPath = File.GetCreationTime(path);
+
+                if (newPath > currentPath)
+                {
+                    dwgPath = path;
+                }
+            }
+        }
+
+        public bool hasDrawing(string path)
+        {
+            return !(String.IsNullOrEmpty(path));
         }
 
         public override string ToString()

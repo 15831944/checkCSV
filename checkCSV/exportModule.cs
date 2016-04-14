@@ -12,12 +12,16 @@ namespace checkCSV
     class exportModule
     {
         string _path;
+        string _drawingType;
+        int _exportType;
         string _elementType;
 
-        public exportModule(string path, string type)
+        public exportModule(string path, string drawing, int type, string elements)
         {
             _path = path;
-            _elementType = type;
+            _drawingType = drawing;
+            _exportType = type;
+            _elementType = elements;
         }
 
         public void main(List<ElementData> parts)
@@ -36,24 +40,69 @@ namespace checkCSV
         {
             foreach (ElementData part in parts)
             {
-                string sourceFile = part.drawingPath;
-                string fileName = Path.GetFileName(part.drawingPath);
+                doStuff2(part);
+            }
+        }
 
-                string prefix = part.fullName.Split('-')[0];
-                string targetLocation = _path + @"\" + _elementType + @"\" + prefix + @"\pdf\";
+        private void doStuff2(ElementData part)
+        {
+            string prefix = part.fullName.Split('-')[0];
 
-                string targetFile = System.IO.Path.Combine(targetLocation, fileName);
+            if (_drawingType.Contains("PDF"))
+            {
+                string sourceFile = part.pdfPath;
+                doStuff3(sourceFile, prefix, @"\PDF\");
+            }
 
-                if (!System.IO.Directory.Exists(targetLocation))
-                {
-                    System.IO.Directory.CreateDirectory(targetLocation);
-                }
+            if (_drawingType.Contains("DWG"))
+            {
+                string sourceFile = part.dwgPath;
+                doStuff3(sourceFile, prefix, @"\DWG\");
+            }
 
+        }
+
+        private void doStuff3(string sourceFile, string prefix , string suffix)
+        {
+            string fileName = Path.GetFileName(sourceFile);
+            string targetLocation = _path + @"\" + _elementType + @"\" + prefix + suffix;
+            string targetFile = System.IO.Path.Combine(targetLocation, fileName);
+
+
+            if (!System.IO.Directory.Exists(targetLocation))
+            {
+                System.IO.Directory.CreateDirectory(targetLocation);
+            }
+
+            if (_exportType == 0)
+            {
                 if (!File.Exists(targetFile))
                 {
                     System.IO.File.Copy(sourceFile, targetFile, false);
                 }
             }
+            else if (_exportType == 1)
+            {
+                if (File.Exists(targetFile))
+                {
+                    FileInfo old = new FileInfo(targetFile);
+                    FileInfo source = new FileInfo(sourceFile);
+
+                    if (source.LastWriteTime > old.LastWriteTime)
+                    {
+                        System.IO.File.Copy(sourceFile, targetFile, true);
+                    }
+                }
+                else
+                {
+                    System.IO.File.Copy(sourceFile, targetFile, false);
+                }
+            }
+            else if (_exportType == 2)
+            {
+                System.IO.File.Copy(sourceFile, targetFile, true);
+            }
+
         }
     }
 }
