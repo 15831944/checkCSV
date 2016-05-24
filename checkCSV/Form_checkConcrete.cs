@@ -13,7 +13,7 @@ using System.IO;
 
 namespace checkCSV
 {
-    public partial class Form1 : Form
+    public partial class Form_checkConcrete : Form
     {
         private string _csvFolderPath;
         private string _pdfFolderPath;
@@ -50,7 +50,7 @@ namespace checkCSV
             Add_only, Add_if_newer, Replace_all
         }
 
-        public Form1()
+        public Form_checkConcrete()
         {
             InitializeComponent();
         }
@@ -79,7 +79,7 @@ namespace checkCSV
         //LOADING
         private void Form1_Load(object sender, EventArgs e)
         {
-            bool hasSettings = defaultSettings.readDefaultDirectorys(out _csvFolderPath, out _pdfFolderPath, out _dwgFolderPath, out _incastClass);
+            bool hasSettings = DefaultSettings.readDefaultDirectorys(out _csvFolderPath, out _pdfFolderPath, out _dwgFolderPath, out _incastClass);
 
             txt_csv_dir.Text = _csvFolderPath;
             txt_pdf_dir.Text = _pdfFolderPath;
@@ -167,9 +167,10 @@ namespace checkCSV
         //BUTTON
         private void btn_check_csv_Click(object sender, EventArgs e)
         {
-            List<ArrayList> parsedData = csvFileReader.importCSV(_csvFilePath, _incastClass);
-            List<string> _pdfFiles = directoryImport.importDirFiles(_pdfFolderPath, "*.pdf", true);
-            List<string> _dwgFiles = directoryImport.importDirFiles(_dwgFolderPath, "*.dwg", true);
+            csvFileReader reader = new csvFileReader(_csvFilePath, _incastClass);
+            List<ArrayList> parsedData = reader.importCSV();
+            List<string> _pdfFiles = DirectoryImport.importDirFiles(_pdfFolderPath, "*.pdf", true);
+            List<string> _dwgFiles = DirectoryImport.importDirFiles(_dwgFolderPath, "*.dwg", true);
 
             _reportData = new ElementDataGroup(parsedData, _pdfFiles, _dwgFiles);
             _reportData.buildData();
@@ -191,7 +192,7 @@ namespace checkCSV
 
         private void btn_save_defaults_Click(object sender, EventArgs e)
         {
-            string save_status = defaultSettings.writeDefaultDirectorys(_csvFolderPath, _pdfFolderPath, _dwgFolderPath, _incastClass);
+            string save_status = DefaultSettings.writeDefaultDirectorys(_csvFolderPath, _pdfFolderPath, _dwgFolderPath, _incastClass);
             lbl_save_defaults_status.Text = "[" + DateTime.Now.ToString("h:mm:ss") + "] " + save_status;
         }
 
@@ -255,7 +256,7 @@ namespace checkCSV
 
         private void checkReportdir()
         {
-            List<string> csvFiles = directoryImport.importDirFiles(_csvFolderPath, "*.csv", false);
+            List<string> csvFiles = DirectoryImport.importDirFiles(_csvFolderPath, "*.csv", false);
             List<string> csvFileNames = new List<string>();
 
             foreach (string csv in csvFiles)
@@ -270,8 +271,8 @@ namespace checkCSV
 
         private void checkDrawingDir()
         {
-            List<string> pdfFiles = directoryImport.importDirFiles(_pdfFolderPath, "*.pdf", true);
-            List<string> dwgFiles = directoryImport.importDirFiles(_dwgFolderPath, "*.dwg", true);
+            List<string> pdfFiles = DirectoryImport.importDirFiles(_pdfFolderPath, "*.pdf", true);
+            List<string> dwgFiles = DirectoryImport.importDirFiles(_dwgFolderPath, "*.dwg", true);
             lbl_pdf_dir_main.Text = "PDF:     " + _pdfFolderPath;
             lbl_dwg_dir_main.Text = "DWG:   " + _pdfFolderPath;
 
@@ -357,7 +358,7 @@ namespace checkCSV
         private void btn_create_folders_Click(object sender, EventArgs e)
         {
             List<ElementData> exportParts = new List<ElementData>();
-            exportModule export = new exportModule(_exportFolderPath, _drawingType, _exportType, _exportElementType);
+            ExportModule export = new ExportModule(_exportFolderPath, _drawingType, _exportType, _exportElementType);
 
             exportParts = _reportData.allMainParts.Where(x => x.status == 1).ToList();
 

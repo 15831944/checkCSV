@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using System.Drawing;
 
-namespace checkCSV
+namespace checkGA
 {
     static class ABI
     {
@@ -19,19 +19,15 @@ namespace checkCSV
             return path;
         }
 
-        public static Color colorOfField(ElementData part)
+        public static Color colorOfField(GA_Data ga)
         {
-            if (part.status == 1)
+            if (ga.status == 1)
             {
                 return Color.LimeGreen;
             }
-            else if (part.status == 2)
+            else if (ga.status == 2)
             {
                 return Color.Red;
-            }
-            else if (part.status == 3)
-            {
-                return Color.Yellow;
             }
             else
             {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkCSV", "checkCSV\checkCSV.csproj", "{2045CA97-7C0D-48A6-A3C2-ADA84A1F9C16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkConcrete", "checkCSV\checkConcrete.csproj", "{2045CA97-7C0D-48A6-A3C2-ADA84A1F9C16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkGA", "checkGA\checkGA.csproj", "{A22F111F-A514-4DDD-8C45-2ED4E5652430}"
 EndProject

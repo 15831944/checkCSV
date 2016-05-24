@@ -8,25 +8,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace checkCSV
+namespace checkGA
 {
     class csvFileReader
     {
         private string _csvPath;
-        private string _incastClass;
+        private int _nameRow;
+        private int _revisionRow;
+        private int _line;
 
-        public csvFileReader(string csvPath, string incastClass)
+        public csvFileReader(string csvPath, int row1, int row2, int line)
         {
             _csvPath = csvPath;
-
-            if (_incastClass == String.Empty)
-            {
-                _incastClass = "_NONE_";
-            }
-            else
-            {
-                _incastClass = incastClass;
-            }
+            _nameRow = row1;
+            _revisionRow = row2;
+            _line = line;
         }
 
         public List<ArrayList> importCSV()
@@ -60,15 +56,23 @@ namespace checkCSV
         private List<ArrayList> readCSV(StreamReader reader)
         {
             List<ArrayList> data = new List<ArrayList>();
+            int lineCounter = 0;
 
             while (!reader.EndOfStream)
             {
+                if (lineCounter >= _line)
+                {
+                    lineCounter++;
+                    continue;
+                }
+
                 string line = reader.ReadLine();
                 ArrayList lineData = getDataFromLine(line);
                 if (lineData.Count > 0)
                 {
                     data.Add(lineData);
                 }
+
             }
 
             reader.Close();
@@ -84,23 +88,8 @@ namespace checkCSV
             if (line != String.Empty)
             {
                 string[] fields = line.Split(';');
-                int dummy;
-
-                if (int.TryParse(fields[5], out dummy))
-                {
-                    lineData.Add(true); //is mainPart
-                    lineData.Add(fields[2]); //is name
-                    lineData.Add(fields[3]); //is revision
-                    lineData.Add(fields[39]); //is hasDrawing
-                }
-                else if (fields[21] == _incastClass)
-                {
-                    lineData.Add(false); //is mainPart
-                    lineData.Add(fields[22]); //is name
-                    lineData.Add(""); //is revision
-                    lineData.Add(""); //is hasDrawing
-                }
-
+                lineData.Add(fields[_nameRow]);
+                lineData.Add(fields[_revisionRow]);
             }
 
             return lineData;

@@ -1,6 +1,6 @@
 ﻿namespace checkCSV
 {
-    partial class Form1
+    partial class Form_checkConcrete
     {
         /// <summary>
         /// Required designer variable.
@@ -222,7 +222,7 @@
             // 
             // lbl_dwg_dir_main
             // 
-            this.lbl_dwg_dir_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbl_dwg_dir_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_dwg_dir_main.AutoSize = true;
             this.lbl_dwg_dir_main.Location = new System.Drawing.Point(3, 95);
@@ -233,8 +233,8 @@
             // 
             // lv_csv_results
             // 
-            this.lv_csv_results.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lv_csv_results.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lv_csv_results.FullRowSelect = true;
             this.lv_csv_results.Location = new System.Drawing.Point(3, 140);
@@ -247,7 +247,7 @@
             // 
             // lbl_pdf_dir_main
             // 
-            this.lbl_pdf_dir_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbl_pdf_dir_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_pdf_dir_main.AutoSize = true;
             this.lbl_pdf_dir_main.Location = new System.Drawing.Point(3, 78);
@@ -258,7 +258,7 @@
             // 
             // lbl_csv_file_main
             // 
-            this.lbl_csv_file_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbl_csv_file_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_csv_file_main.AutoSize = true;
             this.lbl_csv_file_main.Location = new System.Drawing.Point(3, 61);
@@ -269,7 +269,7 @@
             // 
             // btn_check_csv
             // 
-            this.btn_check_csv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btn_check_csv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_check_csv.Location = new System.Drawing.Point(3, 35);
             this.btn_check_csv.Name = "btn_check_csv";
@@ -281,7 +281,7 @@
             // 
             // txt_incastClass
             // 
-            this.txt_incastClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_incastClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_incastClass.Location = new System.Drawing.Point(92, 9);
             this.txt_incastClass.Name = "txt_incastClass";
@@ -320,7 +320,7 @@
             // 
             // cb_exportType
             // 
-            this.cb_exportType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cb_exportType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_exportType.BackColor = System.Drawing.SystemColors.Window;
             this.cb_exportType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -333,7 +333,7 @@
             // 
             // cb_exportElementType
             // 
-            this.cb_exportElementType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cb_exportElementType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_exportElementType.BackColor = System.Drawing.SystemColors.Window;
             this.cb_exportElementType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -365,8 +365,8 @@
             // 
             // lv_exportedParts
             // 
-            this.lv_exportedParts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lv_exportedParts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lv_exportedParts.Location = new System.Drawing.Point(0, 120);
             this.lv_exportedParts.Name = "lv_exportedParts";
@@ -377,7 +377,7 @@
             // 
             // btn_create_folders
             // 
-            this.btn_create_folders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.btn_create_folders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_create_folders.Location = new System.Drawing.Point(0, 704);
             this.btn_create_folders.Name = "btn_create_folders";
@@ -389,7 +389,7 @@
             // 
             // txt_export_target
             // 
-            this.txt_export_target.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_export_target.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_export_target.Location = new System.Drawing.Point(0, 16);
             this.txt_export_target.Name = "txt_export_target";
@@ -421,8 +421,8 @@
             // 
             // lib_csv_dir
             // 
-            this.lib_csv_dir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lib_csv_dir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lib_csv_dir.FormattingEnabled = true;
             this.lib_csv_dir.Location = new System.Drawing.Point(3, 65);
@@ -433,7 +433,7 @@
             // 
             // btn_check_csv_dir
             // 
-            this.btn_check_csv_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btn_check_csv_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_check_csv_dir.Location = new System.Drawing.Point(3, 29);
             this.btn_check_csv_dir.Name = "btn_check_csv_dir";
@@ -493,7 +493,7 @@
             // 
             // txt_dwg_dir
             // 
-            this.txt_dwg_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_dwg_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_dwg_dir.Location = new System.Drawing.Point(3, 58);
             this.txt_dwg_dir.Name = "txt_dwg_dir";
@@ -522,7 +522,7 @@
             // 
             // lv_dwg_dir
             // 
-            this.lv_dwg_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lv_dwg_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lv_dwg_dir.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lv_dwg_dir.Location = new System.Drawing.Point(350, 132);
@@ -535,7 +535,7 @@
             // 
             // lv_pdf_dir
             // 
-            this.lv_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lv_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lv_pdf_dir.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lv_pdf_dir.Location = new System.Drawing.Point(8, 132);
@@ -548,7 +548,7 @@
             // 
             // btn_checkPDF
             // 
-            this.btn_checkPDF.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btn_checkPDF.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_checkPDF.Location = new System.Drawing.Point(3, 84);
             this.btn_checkPDF.Name = "btn_checkPDF";
@@ -560,7 +560,7 @@
             // 
             // txt_pdf_dir
             // 
-            this.txt_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_pdf_dir.Location = new System.Drawing.Point(3, 19);
             this.txt_pdf_dir.Name = "txt_pdf_dir";
@@ -600,7 +600,7 @@
             // 
             // txt_default_dwg_dir
             // 
-            this.txt_default_dwg_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_default_dwg_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_default_dwg_dir.Location = new System.Drawing.Point(3, 97);
             this.txt_default_dwg_dir.Name = "txt_default_dwg_dir";
@@ -619,7 +619,7 @@
             // 
             // txt_default_incast_class
             // 
-            this.txt_default_incast_class.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_default_incast_class.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_default_incast_class.Location = new System.Drawing.Point(3, 136);
             this.txt_default_incast_class.Name = "txt_default_incast_class";
@@ -638,7 +638,7 @@
             // 
             // btn_save_defaults
             // 
-            this.btn_save_defaults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btn_save_defaults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_save_defaults.Location = new System.Drawing.Point(3, 162);
             this.btn_save_defaults.Name = "btn_save_defaults";
@@ -668,7 +668,7 @@
             // 
             // txt_default_pdf_dir
             // 
-            this.txt_default_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_default_pdf_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_default_pdf_dir.Location = new System.Drawing.Point(3, 58);
             this.txt_default_pdf_dir.Name = "txt_default_pdf_dir";
@@ -678,7 +678,7 @@
             // 
             // txt_default_csv_dir
             // 
-            this.txt_default_csv_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_default_csv_dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_default_csv_dir.Location = new System.Drawing.Point(3, 19);
             this.txt_default_csv_dir.Name = "txt_default_csv_dir";

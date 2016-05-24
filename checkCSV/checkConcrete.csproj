@@ -48,21 +48,21 @@
   <ItemGroup>
     <Compile Include="ABI.cs" />
     <Compile Include="csvFileReader.cs" />
-    <Compile Include="directoryImport.cs" />
-    <Compile Include="defaultSettings.cs" />
+    <Compile Include="DirectoryImport.cs" />
+    <Compile Include="DefaultSettings.cs" />
     <Compile Include="ElementData.cs" />
     <Compile Include="ElementDataGroup.cs" />
-    <Compile Include="exportModule.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="ExportModule.cs" />
+    <Compile Include="Form_checkConcrete.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Form_checkConcrete.Designer.cs">
+      <DependentUpon>Form_checkConcrete.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Form_checkConcrete.resx">
+      <DependentUpon>Form_checkConcrete.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -1,0 +1,8 @@
+C:\Users\alex\Documents\GitHub\checkCSV\checkCSV\bin\Debug\checkCSV.exe.config
+C:\Users\alex\Documents\GitHub\checkCSV\checkCSV\bin\Debug\checkCSV.exe
+C:\Users\alex\Documents\GitHub\checkCSV\checkCSV\bin\Debug\checkCSV.pdb
+C:\Users\alex\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.Form_checkConcrete.resources
+C:\Users\alex\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.Properties.Resources.resources
+C:\Users\alex\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkConcrete.csproj.GenerateResource.Cache
+C:\Users\alex\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.exe
+C:\Users\alex\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.pdb

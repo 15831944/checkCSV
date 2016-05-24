@@ -9,14 +9,14 @@ using System.IO;
 
 namespace checkCSV
 {
-    class exportModule
+    class ExportModule
     {
         string _path;
         string _drawingType;
         int _exportType;
         string _elementType;
 
-        public exportModule(string path, string drawing, int type, string elements)
+        public ExportModule(string path, string drawing, int type, string elements)
         {
             _path = path;
             _drawingType = drawing;

@@ -9,7 +9,7 @@ using System.IO;
 
 namespace checkCSV
 {
-    static class defaultSettings
+    static class DefaultSettings
     {
         public static bool readDefaultDirectorys(out string csv, out string pdf, out string dwg, out string incastClass)
         {

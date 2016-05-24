@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 using System.IO;
 
-namespace checkCSV
+namespace checkGA
 {
     static class DirectoryImport
     {
