@@ -68,22 +68,27 @@ namespace checkCSV
             ArrayList lineData = new ArrayList();
 
             line = line.Replace(" ", "");
-            string[] fields = line.Split(';');
-            int dummy;
 
-            if (int.TryParse(fields[5], out dummy))
+            if (line != String.Empty)
             {
-                lineData.Add(true); //is mainPart
-                lineData.Add(fields[2]); //is name
-                lineData.Add(fields[3]); //is revision
-                lineData.Add(fields[39]); //is hasDrawing
-            }
-            else if (fields[21] == incastClass)
-            {
-                lineData.Add(false); //is mainPart
-                lineData.Add(fields[22]); //is name
-                lineData.Add(""); //is revision
-                lineData.Add(""); //is hasDrawing
+                string[] fields = line.Split(';');
+                int dummy;
+
+                if (int.TryParse(fields[5], out dummy))
+                {
+                    lineData.Add(true); //is mainPart
+                    lineData.Add(fields[2]); //is name
+                    lineData.Add(fields[3]); //is revision
+                    lineData.Add(fields[39]); //is hasDrawing
+                }
+                else if (fields[21] == incastClass)
+                {
+                    lineData.Add(false); //is mainPart
+                    lineData.Add(fields[22]); //is name
+                    lineData.Add(""); //is revision
+                    lineData.Add(""); //is hasDrawing
+                }
+
             }
 
             return lineData;
