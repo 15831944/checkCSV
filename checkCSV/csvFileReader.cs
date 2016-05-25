@@ -80,10 +80,10 @@ namespace checkCSV
             ArrayList lineData = new ArrayList();
 
             line = line.Replace(" ", "");
+            string[] fields = line.Split(';');
 
-            if (line != String.Empty)
+            if (line != String.Empty && fields.Count() >= 21)
             {
-                string[] fields = line.Split(';');
                 int dummy;
 
                 if (int.TryParse(fields[5], out dummy))
@@ -100,6 +100,7 @@ namespace checkCSV
                     lineData.Add(""); //is revision
                     lineData.Add(""); //is hasDrawing
                 }
+
 
             }
 
