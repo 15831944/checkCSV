@@ -23,11 +23,11 @@ namespace checkGA
 
     public partial class Form_checkGA : Form
     {
-        private string _csv = String.Empty;
+        private string _xlsx = String.Empty;
         private string _folder = String.Empty;
-        private int _rowFileName = 0;
-        private int _rowRevision = 1;
-        private int _lineStart = 0;
+        private int _rowFileName = 1;
+        private int _rowRevision = 2;
+        private int _lineStart = 1;
         private string _revisionFormat = "_Rev";
 
         private string _drawingType;
@@ -39,9 +39,13 @@ namespace checkGA
         {
             InitializeComponent();
 
-            txt_rowFileName.Text = (_rowFileName + 1).ToString();
-            txt_rowRevision.Text = (_rowRevision + 1).ToString();
-            txt_line.Text = (_lineStart + 1).ToString();
+            btn_start.Enabled = false;
+
+            txt_xlsx.Text = _xlsx;
+
+            txt_rowFileName.Text = _rowFileName.ToString();
+            txt_rowRevision.Text = _rowRevision.ToString();
+            txt_line.Text = _lineStart.ToString();
             txt_revisionFormat.Text = _revisionFormat;
 
             cb_drawing_type.DataSource = Enum.GetValues(typeof(DrawingFinder));
@@ -49,9 +53,18 @@ namespace checkGA
             exampleText();
         }
 
-        private void txt_csv_TextChanged(object sender, EventArgs e)
+        private void txt_xlsx_TextChanged(object sender, EventArgs e)
         {
-            _csv = txt_csv.Text;
+            _xlsx = txt_xlsx.Text;
+
+            if (String.IsNullOrEmpty(_xlsx))
+            {
+                btn_start.Enabled = false;
+            }
+            else
+            {
+                btn_start.Enabled = true;
+            }
         }
 
         private void txt_folder_TextChanged(object sender, EventArgs e)
@@ -62,21 +75,19 @@ namespace checkGA
         private void btn_choose_csv_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "CSV Files (*.csv)|*.csv";
+            openFileDialog1.Filter = "EXCEL Files (*.xlsx)|*.xlsx";
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.Multiselect = false;
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                txt_csv.Text = openFileDialog1.FileName;
+                txt_xlsx.Text = openFileDialog1.FileName;
             }
         }
 
         private void btn_choose_dir_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = "Custom Description";
-
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 txt_folder.Text = fbd.SelectedPath;
@@ -86,26 +97,28 @@ namespace checkGA
         private void txt_rowFileName_TextChanged(object sender, EventArgs e)
         {
             int dummy;
-            if (Int32.TryParse(txt_rowFileName.Text, out dummy) && dummy > 0)
+
+            if (Int32.TryParse(txt_rowFileName.Text, out dummy))
             {
-                _rowFileName = dummy - 1;
+                _rowFileName = dummy;
             }
             else
             {
-                txt_rowFileName.Text = (_rowFileName + 1).ToString();
+                txt_rowFileName.Text = _rowFileName.ToString();
             }
         }
 
         private void txt_rowRevision_TextChanged(object sender, EventArgs e)
         {
             int dummy;
-            if (Int32.TryParse(txt_rowFileName.Text, out dummy) && dummy > 0)
+
+            if (Int32.TryParse(txt_rowRevision.Text, out dummy))
             {
-                _rowRevision = dummy - 1;
+                _rowRevision = dummy;
             }
             else
             {
-                txt_rowRevision.Text = (_rowRevision + 1).ToString();
+                txt_rowRevision.Text = _rowRevision.ToString();
             }
         }
 
@@ -114,7 +127,21 @@ namespace checkGA
             _revisionFormat = txt_revisionFormat.Text;
             exampleText();
         }
-        
+
+        private void txt_line_TextChanged(object sender, EventArgs e)
+        {
+            int dummy;
+
+            if (Int32.TryParse(txt_line.Text, out dummy))
+            {
+                _lineStart = dummy;
+            }
+            else
+            {
+                txt_line.Text = _lineStart.ToString();
+            }
+        }
+
         private void exampleText()
         {
             string example = "K-0001" + _revisionFormat + "B";
@@ -123,8 +150,8 @@ namespace checkGA
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            csvFileReader reader = new csvFileReader(_csv, _rowFileName, _rowRevision, _lineStart);
-            List<ArrayList> parsedData = reader.importCSV();
+            excelFileReader reader = new excelFileReader(_xlsx, _rowFileName, _rowRevision, _lineStart);
+            List<ArrayList> parsedData = reader.importXSLS();
 
             List<string> _pdfFiles = DirectoryImport.importDirFiles(_folder, "*.pdf", true);
             List<string> _dwgFiles = DirectoryImport.importDirFiles(_folder, "*.dwg", true);

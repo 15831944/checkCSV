@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Interop.Excel">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\TeklaStructuresLearning\21.1\nt\bin\plugins\Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +53,7 @@
     <Compile Include="ABI.cs" />
     <Compile Include="csvFileReader.cs" />
     <Compile Include="DirectoryImport.cs" />
+    <Compile Include="excelFileReader.cs" />
     <Compile Include="GA_DataGroup.cs" />
     <Compile Include="Form_checkGA.cs">
       <SubType>Form</SubType>
@@ -83,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
