@@ -38,8 +38,9 @@ namespace checkGA
         public Form_checkGA()
         {
             InitializeComponent();
-
+            
             btn_start.Enabled = false;
+
 
             txt_xlsx.Text = _xlsx;
 
@@ -49,7 +50,9 @@ namespace checkGA
             txt_revisionFormat.Text = _revisionFormat;
 
             cb_drawing_type.DataSource = Enum.GetValues(typeof(DrawingFinder));
+            cb_filter_results_type.DataSource = Enum.GetValues(typeof(StatusFilter));
 
+            report_labels_update();
             exampleText();
         }
 
@@ -160,7 +163,7 @@ namespace checkGA
             _reportData.buildData(_revisionFormat);
             _reportData.findDrawings(_drawingType);
 
-            //report_labels_update();
+            report_labels_update();
             report_list_update();
         }
 
@@ -218,6 +221,19 @@ namespace checkGA
         private void cb_drawing_type_SelectedIndexChanged(object sender, EventArgs e)
         {
             _drawingType = cb_drawing_type.SelectedValue.ToString();
+        }
+
+        private void cb_filter_results_type_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _reportFilter = (int)cb_filter_results_type.SelectedValue;
+            report_list_update();
+        }
+
+        private void report_labels_update()
+        {
+            lb_status_0.Text = @"Total: (" + _reportData._allDrawings.Count.ToString() + @")";
+            lb_status_1.Text = @"OK: (" + _reportData._allDrawings.Where(x => x.status == 1).ToList().Count.ToString() + @")";
+            lb_status_2.Text = @"Missing: (" + _reportData._allDrawings.Where(x => x.status == 2).ToList().Count.ToString() + @")";
         }
     }
 }

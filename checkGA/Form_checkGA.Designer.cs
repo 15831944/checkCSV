@@ -48,6 +48,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lv_csv_results = new System.Windows.Forms.ListView();
             this.cb_include_revision = new System.Windows.Forms.CheckBox();
+            this.lb_status_2 = new System.Windows.Forms.Label();
+            this.lb_status_1 = new System.Windows.Forms.Label();
+            this.lb_status_0 = new System.Windows.Forms.Label();
+            this.cb_filter_results_type = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btn_choose_csv
@@ -226,10 +230,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lv_csv_results.FullRowSelect = true;
-            this.lv_csv_results.Location = new System.Drawing.Point(12, 180);
+            this.lv_csv_results.Location = new System.Drawing.Point(12, 197);
             this.lv_csv_results.MultiSelect = false;
             this.lv_csv_results.Name = "lv_csv_results";
-            this.lv_csv_results.Size = new System.Drawing.Size(640, 569);
+            this.lv_csv_results.Size = new System.Drawing.Size(640, 552);
             this.lv_csv_results.TabIndex = 17;
             this.lv_csv_results.UseCompatibleStateImageBehavior = false;
             this.lv_csv_results.View = System.Windows.Forms.View.Details;
@@ -246,11 +250,55 @@
             this.cb_include_revision.Text = "Include revision";
             this.cb_include_revision.UseVisualStyleBackColor = true;
             // 
+            // lb_status_2
+            // 
+            this.lb_status_2.AutoSize = true;
+            this.lb_status_2.BackColor = System.Drawing.Color.Red;
+            this.lb_status_2.Location = new System.Drawing.Point(327, 173);
+            this.lb_status_2.Name = "lb_status_2";
+            this.lb_status_2.Size = new System.Drawing.Size(74, 13);
+            this.lb_status_2.TabIndex = 23;
+            this.lb_status_2.Text = "Missing: (xxxx)";
+            // 
+            // lb_status_1
+            // 
+            this.lb_status_1.AutoSize = true;
+            this.lb_status_1.BackColor = System.Drawing.Color.Lime;
+            this.lb_status_1.Location = new System.Drawing.Point(267, 173);
+            this.lb_status_1.Name = "lb_status_1";
+            this.lb_status_1.Size = new System.Drawing.Size(54, 13);
+            this.lb_status_1.TabIndex = 22;
+            this.lb_status_1.Text = "OK: (xxxx)";
+            // 
+            // lb_status_0
+            // 
+            this.lb_status_0.AutoSize = true;
+            this.lb_status_0.BackColor = System.Drawing.Color.White;
+            this.lb_status_0.Location = new System.Drawing.Point(198, 173);
+            this.lb_status_0.Name = "lb_status_0";
+            this.lb_status_0.Size = new System.Drawing.Size(63, 13);
+            this.lb_status_0.TabIndex = 21;
+            this.lb_status_0.Text = "Total: (xxxx)";
+            // 
+            // cb_filter_results_type
+            // 
+            this.cb_filter_results_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_filter_results_type.FormattingEnabled = true;
+            this.cb_filter_results_type.Location = new System.Drawing.Point(12, 170);
+            this.cb_filter_results_type.Name = "cb_filter_results_type";
+            this.cb_filter_results_type.Size = new System.Drawing.Size(179, 21);
+            this.cb_filter_results_type.TabIndex = 24;
+            this.cb_filter_results_type.SelectedIndexChanged += new System.EventHandler(this.cb_filter_results_type_SelectedIndexChanged);
+            // 
             // Form_checkGA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(664, 761);
+            this.Controls.Add(this.cb_filter_results_type);
+            this.Controls.Add(this.lb_status_2);
+            this.Controls.Add(this.lb_status_1);
+            this.Controls.Add(this.lb_status_0);
             this.Controls.Add(this.cb_include_revision);
             this.Controls.Add(this.lv_csv_results);
             this.Controls.Add(this.label7);
@@ -300,6 +348,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ListView lv_csv_results;
         private System.Windows.Forms.CheckBox cb_include_revision;
+        private System.Windows.Forms.Label lb_status_2;
+        private System.Windows.Forms.Label lb_status_1;
+        private System.Windows.Forms.Label lb_status_0;
+        private System.Windows.Forms.ComboBox cb_filter_results_type;
     }
 }
 
