@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.Excel">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\TeklaStructuresLearning\21.1\nt\bin\plugins\Interop.Excel.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Tekla Structures\20.0\nt\bin\plugins\Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />

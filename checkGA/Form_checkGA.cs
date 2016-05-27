@@ -150,7 +150,7 @@ namespace checkGA
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            excelFileReader reader = new excelFileReader(_xlsx, _rowFileName, _rowRevision, _lineStart);
+            excelFileReader reader = new excelFileReader(_xlsx, _rowFileName, _rowRevision, _lineStart, cb_include_revision.Checked);
             List<ArrayList> parsedData = reader.importXSLS();
 
             List<string> _pdfFiles = DirectoryImport.importDirFiles(_folder, "*.pdf", true);

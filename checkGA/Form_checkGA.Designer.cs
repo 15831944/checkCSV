@@ -47,6 +47,7 @@
             this.cb_drawing_type = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lv_csv_results = new System.Windows.Forms.ListView();
+            this.cb_include_revision = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btn_choose_csv
@@ -221,7 +222,8 @@
             // 
             // lv_csv_results
             // 
-            this.lv_csv_results.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.lv_csv_results.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lv_csv_results.FullRowSelect = true;
             this.lv_csv_results.Location = new System.Drawing.Point(12, 180);
@@ -232,11 +234,24 @@
             this.lv_csv_results.UseCompatibleStateImageBehavior = false;
             this.lv_csv_results.View = System.Windows.Forms.View.Details;
             // 
+            // cb_include_revision
+            // 
+            this.cb_include_revision.AutoSize = true;
+            this.cb_include_revision.Checked = true;
+            this.cb_include_revision.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_include_revision.Location = new System.Drawing.Point(118, 152);
+            this.cb_include_revision.Name = "cb_include_revision";
+            this.cb_include_revision.Size = new System.Drawing.Size(100, 17);
+            this.cb_include_revision.TabIndex = 18;
+            this.cb_include_revision.Text = "Include revision";
+            this.cb_include_revision.UseVisualStyleBackColor = true;
+            // 
             // Form_checkGA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(664, 761);
+            this.Controls.Add(this.cb_include_revision);
             this.Controls.Add(this.lv_csv_results);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cb_drawing_type);
@@ -284,6 +299,7 @@
         private System.Windows.Forms.ComboBox cb_drawing_type;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ListView lv_csv_results;
+        private System.Windows.Forms.CheckBox cb_include_revision;
     }
 }
 

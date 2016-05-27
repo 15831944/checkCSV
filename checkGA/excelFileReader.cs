@@ -19,13 +19,15 @@ namespace checkGA
         int _nameRow;
         int _revisionRow;
         int _line;
+        bool _includeRevision;
 
-        public excelFileReader(string xlsxPath, int row1, int row2, int line)
+        public excelFileReader(string xlsxPath, int row1, int row2, int line, bool revision)
         {
             _xlsxPath = xlsxPath;
             _nameRow = row1;
             _revisionRow = row2;
             _line = line;
+            _includeRevision = revision;
         }
 
         public List<ArrayList> importXSLS()
@@ -99,7 +101,12 @@ namespace checkGA
             ArrayList lineData = new ArrayList();
 
             string name = (sheet.Cells[i, _nameRow] as Excel.Range).Value as string;
-            string rev = (sheet.Cells[i, _revisionRow] as Excel.Range).Value as string;
+            string rev = "";
+
+            if (_includeRevision)
+            {
+                rev = (sheet.Cells[i, _revisionRow] as Excel.Range).Value as string;
+            }
 
             if (String.IsNullOrEmpty(name) && String.IsNullOrEmpty(rev))
             {
