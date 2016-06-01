@@ -1,0 +1,8 @@
+C:\Users\alex\Documents\GitHub\checkCSV\checkConcreteTests\obj\Debug\checkConcreteTests.csprojResolveAssemblyReference.cache
+C:\Users\alex\Documents\GitHub\checkCSV\checkConcreteTests\bin\Debug\checkConcreteTests.dll
+C:\Users\alex\Documents\GitHub\checkCSV\checkConcreteTests\bin\Debug\checkConcreteTests.pdb
+C:\Users\alex\Documents\GitHub\checkCSV\checkConcreteTests\bin\Debug\checkCSV.exe
+C:\Users\alex\Documents\GitHub\checkCSV\checkConcreteTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\alex\Documents\GitHub\checkCSV\checkConcreteTests\bin\Debug\checkCSV.pdb
+C:\Users\alex\Documents\GitHub\checkCSV\checkConcreteTests\obj\Debug\checkConcreteTests.dll
+C:\Users\alex\Documents\GitHub\checkCSV\checkConcreteTests\obj\Debug\checkConcreteTests.pdb

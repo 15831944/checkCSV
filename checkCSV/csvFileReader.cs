@@ -19,7 +19,7 @@ namespace checkCSV
         {
             _csvPath = csvPath;
 
-            if (_incastClass == String.Empty)
+            if (String.IsNullOrEmpty(incastClass))
             {
                 _incastClass = "_NONE_";
             }

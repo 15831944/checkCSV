@@ -33,9 +33,21 @@ namespace checkCSV
             {
                 return Color.Yellow;
             }
-            else
+            else if (part.status == 4)
             {
                 return Color.Cyan;
+            }
+            else if (part.status == 5)
+            {
+                return Color.Gold;
+            }
+            else if (part.status == 6)
+            {
+                return Color.Pink;
+            }
+            else
+            {
+                return Color.Blue;
             }
         }
     }

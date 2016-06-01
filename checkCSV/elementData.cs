@@ -36,6 +36,12 @@ namespace checkCSV
             if (hasDrawing == "1") set = true;
         }
 
+        public ElementData(string path)
+        {
+            fullName = Path.GetFileNameWithoutExtension(path);
+            status = 6;
+            statusMessage = "Drawing not in CSV [ " + path + " ] ";
+        }
 
         public void addSpecialDetail(ElementData part)
         {
@@ -51,91 +57,79 @@ namespace checkCSV
         {
             if (hasCopy == true)
             {
-                status = 5;
-                statusMessage = "[HAS COPY]";
-                return;
-            }
-
-            if (set == true)
-            {
-
                 if (drawingType.Contains("PDF") && hasDrawing(pdfPath))
                 {
-                    status = 1;
-                    statusMessage += "[PDF OK] ";
+                    status = 5;
+                    statusMessage += "[PDF COPY] ";
                 }
 
                 if (drawingType.Contains("DWG") && hasDrawing(dwgPath))
                 {
-                    status = 1;
-                    statusMessage += "[DWG OK] ";
+                    status = 5;
+                    statusMessage += "[DWG COPY] ";
                 }
-
-                if (drawingType.Contains("PDF") && !hasDrawing(pdfPath))
-                {
-                    status = 2;
-                    statusMessage += "[PDF MISSING] ";
-                }
-
-                if (drawingType.Contains("DWG") && !hasDrawing(dwgPath))
-                {
-                    status = 2;
-                    statusMessage += "[DWG MISSING] ";
-                }
-                
             }
             else
             {
-                status = 3;
-                statusMessage = "[NOT SET] ";
-
-                if (drawingType.Contains("PDF") && hasDrawing(pdfPath))
+                if (set == true)
                 {
-                    status = 4;
-                    statusMessage += "[PDF FOUND] ";
+                    if (drawingType.Contains("PDF") && hasDrawing(pdfPath))
+                    {
+                        status = 1;
+                        statusMessage += "[PDF OK] ";
+                    }
+
+                    if (drawingType.Contains("DWG") && hasDrawing(dwgPath))
+                    {
+                        status = 1;
+                        statusMessage += "[DWG OK] ";
+                    }
+
+                    if (drawingType.Contains("PDF") && !hasDrawing(pdfPath))
+                    {
+                        status = 2;
+                        statusMessage += "[PDF MISSING] ";
+                    }
+
+                    if (drawingType.Contains("DWG") && !hasDrawing(dwgPath))
+                    {
+                        status = 2;
+                        statusMessage += "[DWG MISSING] ";
+                    }
+
                 }
-
-                if (drawingType.Contains("DWG") && hasDrawing(dwgPath))
+                else
                 {
-                    status = 4;
-                    statusMessage += "[DWG FOUND] ";
+                    status = 3;
+                    statusMessage = "[NOT SET] ";
+
+                    if (drawingType.Contains("PDF") && hasDrawing(pdfPath))
+                    {
+                        status = 4;
+                        statusMessage += "[PDF FOUND] ";
+                    }
+
+                    if (drawingType.Contains("DWG") && hasDrawing(dwgPath))
+                    {
+                        status = 4;
+                        statusMessage += "[DWG FOUND] ";
+                    }
                 }
             }
+
         }
 
         public void setDrawing(string path)
         {
             if (Path.GetExtension(path) == ".pdf")
             {
-                pdfPath = findNewerPath(path, pdfPath);
+                pdfPath = path;
             }
             else if (Path.GetExtension(path) == ".dwg")
             {
-                dwgPath = findNewerPath(path, dwgPath);
+                dwgPath = path;
             }
 
-        }
-
-        public string findNewerPath(string newPath, string oldPath)
-        {
-            if (String.IsNullOrEmpty(oldPath))
-            {
-                return newPath;
-            }
-            else
-            {
-                DateTime oldTime = File.GetCreationTime(oldPath);
-                DateTime newTime = File.GetCreationTime(newPath);
-
-                if (newTime > oldTime)
-                {
-                    return newPath;
-                }
-                else
-                {
-                    return oldPath;
-                }
-            }
         }
 
         public bool hasDrawing(string path)

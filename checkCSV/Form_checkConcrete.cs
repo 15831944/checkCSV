@@ -42,7 +42,7 @@ namespace checkCSV
 
         public enum StatusFilter
         {
-            ALL, OK, Missing, Not_Set, Not_Set_Has_Drawings
+            ALL, OK, Missing, Not_Set, Not_Set_Has_Drawings, Has_Copy, Not_In_List
         }
 
         public enum ExportType
@@ -174,7 +174,7 @@ namespace checkCSV
 
             _reportData = new ElementDataGroup(parsedData, _pdfFiles, _dwgFiles);
             _reportData.buildData();
-            _reportData.findDrawings(_drawingType);
+            _reportData.findDrawingHandler(_drawingType);
 
             report_labels_update();
             report_list_update();
@@ -393,6 +393,8 @@ namespace checkCSV
             lb_status_2.Text = @"Missing: (" + _reportData.allParts.Where(x => x.status == 2).ToList().Count.ToString() + @")";
             lb_status_3.Text = @"Not Set (" + _reportData.allParts.Where(x => x.status == 3).ToList().Count.ToString() + @")";
             lb_status_4.Text = @"Not Set - Has Drawing (" + _reportData.allParts.Where(x => x.status == 4).ToList().Count.ToString() + @")";
+            lb_status_5.Text = @"Has Copy (" + _reportData.allParts.Where(x => x.status == 5).ToList().Count.ToString() + @")";
+            lb_status_6.Text = @"Not in CSV (" + _reportData.allParts.Where(x => x.status == 6).ToList().Count.ToString() + @")";
         }
     }
 }

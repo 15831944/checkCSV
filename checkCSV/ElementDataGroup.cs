@@ -16,6 +16,9 @@ namespace checkCSV
         public List<ElementData> allParts;
 
         public List<ArrayList> _raw;
+        public List<string> _rawPDF;
+        public List<string> _rawDWG;
+
         public List<string> _pdfNotFound;
         public List<string> _pdfFound;
         public List<string> _dwgNotFound;
@@ -28,9 +31,12 @@ namespace checkCSV
             allParts = new List<ElementData>();
 
             _raw = raw;
-            _pdfNotFound = pdf;
+            _rawPDF = pdf;
+            _rawDWG = dwg;
+
+            _pdfNotFound = new List<string>();
             _pdfFound = new List<string>();
-            _dwgNotFound = dwg;
+            _dwgNotFound = new List<string>();
             _dwgFound = new List<string>();
         }
 
@@ -41,14 +47,65 @@ namespace checkCSV
             allParts = new List<ElementData>();
 
             _raw = new List<ArrayList>();
+            _rawPDF = new List<string>();
+            _rawDWG = new List<string>();
+
             _pdfNotFound = new List<string>();
             _pdfFound = new List<string>();
             _dwgNotFound = new List<string>();
             _dwgFound = new List<string>();
         }
 
+
+        public string findNewerPath(string newPath, string oldPath)
+        {
+            DateTime oldTime = File.GetCreationTime(oldPath);
+            DateTime newTime = File.GetCreationTime(newPath);
+
+            if (newTime > oldTime)
+            {
+                return newPath;
+            }
+            else
+            {
+                return oldPath;
+            }
+        }
+
+        public bool uniquePath(string path, List<string> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (Path.GetFileNameWithoutExtension(path) == Path.GetFileNameWithoutExtension(list[i]))
+                {
+                    list[i] = findNewerPath(list[i], path);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public void buildData()
         {
+            foreach (string rawPath in _rawPDF)
+            {
+                bool unique = uniquePath(rawPath, _pdfNotFound);
+                if (unique)
+                {
+                    _pdfNotFound.Add(rawPath);
+                }
+            }
+
+            foreach (string rawPath in _rawDWG)
+            {
+                bool unique = uniquePath(rawPath, _dwgNotFound);
+                if (unique)
+                {
+                    _dwgNotFound.Add(rawPath);
+                }
+            }
+
             foreach (ArrayList element in _raw)
             {
                 if ((bool)element[0] == true)
@@ -98,55 +155,74 @@ namespace checkCSV
             }
         }
 
-        public void findDrawings(string drawingType)
+        public void findDrawingHandler(string drawingType)
         {
             foreach (ElementData main in allMainParts)
             {
-                findDrawingLogic(main, drawingType);
+                findDrawings(main, drawingType);
             }
 
             foreach (ElementData special in allSpecialParts)
             {
-                findDrawingLogic(special, drawingType);
+                findDrawings(special, drawingType);
             }
 
             foreach (ElementData part in allParts)
             {
                 part.setStatus(drawingType);
             }
+
+            if (drawingType.Contains("PDF"))
+            {
+                foreach (string path in _pdfNotFound)
+                {
+                    ElementData drawingNotFound = new ElementData(path);
+                    allParts.Add(drawingNotFound);
+                    allMainParts.Add(drawingNotFound);
+                }
+            }
+
+            else if (drawingType.Contains("DWG"))
+            {
+                foreach (string path in _dwgNotFound)
+                {
+                    ElementData drawingNotFound = new ElementData(path);
+                    allParts.Add(drawingNotFound);
+                    allMainParts.Add(drawingNotFound);
+                }
+            }
+
         }
 
-        public void findDrawingLogic(ElementData part, string drawingType)
+        public void findDrawings(ElementData part, string drawingType)
         {
             if (drawingType.Contains("PDF"))
             {
-                bool found = findDrawingLoopLogic(part, ref _pdfNotFound, ref _pdfFound);
-                if (found == false)
-                {
-                    List<String> empty = new List<string>();
-                    bool foundCopy = findDrawingLoopLogic(part, ref _pdfFound, ref empty);
-                    if (foundCopy == true)
-                    {
-                        part.hasCopy = true;
-                    }
-                }
+                findDrawingLogic(part, ref _pdfNotFound, ref _pdfFound);
             }
             if (drawingType.Contains("DWG"))
             {
-                bool found = findDrawingLoopLogic(part, ref _dwgNotFound, ref _dwgFound);
-                if (found == false)
+                findDrawingLogic(part, ref _dwgNotFound, ref _dwgFound);
+            }
+
+        }
+
+        public void findDrawingLogic(ElementData part, ref List<string> NotFound, ref List<string> Found)
+        {
+            bool found = findDrawingLoopLogic(part, ref NotFound, ref Found);
+
+            if (found == false)
+            {
+                List<String> empty = new List<string>();
+                bool foundCopy = findDrawingLoopLogic(part, ref Found, ref empty, false);
+                if (foundCopy == true)
                 {
-                    List<String> empty = new List<string>();
-                    bool foundCopy = findDrawingLoopLogic(part, ref _dwgFound, ref empty);
-                    if (foundCopy == true)
-                    {
-                        part.hasCopy = true;
-                    }
+                    part.hasCopy = true;
                 }
             }
         }
 
-        public bool findDrawingLoopLogic(ElementData part, ref List<string> NotFound, ref List<string> Found)
+        public bool findDrawingLoopLogic(ElementData part, ref List<string> NotFound, ref List<string> Found, bool remove = true)
         {
             for (int i = NotFound.Count - 1; i >= 0; i--)
             {
@@ -155,7 +231,7 @@ namespace checkCSV
                     string drawing = NotFound[i];
                     part.setDrawing(drawing);
                     Found.Add(drawing);
-                    NotFound.RemoveAt(i);
+                    if (remove) NotFound.RemoveAt(i);
 
                     return true;
                 }
