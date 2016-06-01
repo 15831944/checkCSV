@@ -8,7 +8,7 @@ using System.IO;
 
 namespace checkCSV
 {
-    class ElementData
+    public class ElementData
     {
         public string name;
         public string fullName;
@@ -20,6 +20,7 @@ namespace checkCSV
 
         public string pdfPath = "";
         public string dwgPath = "";
+        public bool hasCopy = false;
 
         public List<ElementData> specialDetails = new List<ElementData>();
         public List<ElementData> mainParts = new List<ElementData>();
@@ -48,103 +49,91 @@ namespace checkCSV
 
         public void setStatus(string drawingType)
         {
+            if (hasCopy == true)
+            {
+                status = 5;
+                statusMessage = "[HAS COPY]";
+                return;
+            }
+
             if (set == true)
             {
-                if (drawingType == "PDF_DWG" && hasDrawing(pdfPath) && hasDrawing(dwgPath))
+
+                if (drawingType.Contains("PDF") && hasDrawing(pdfPath))
                 {
                     status = 1;
-                    statusMessage = "[OK]";
+                    statusMessage += "[PDF OK] ";
                 }
-                else if (drawingType == "PDF" && hasDrawing(pdfPath))
+
+                if (drawingType.Contains("DWG") && hasDrawing(dwgPath))
                 {
                     status = 1;
-                    statusMessage = "[OK]";
+                    statusMessage += "[DWG OK] ";
                 }
-                else if (drawingType == "DWG" && hasDrawing(dwgPath))
-                {
-                    status = 1;
-                    statusMessage = "[OK]";
-                }
-                else
+
+                if (drawingType.Contains("PDF") && !hasDrawing(pdfPath))
                 {
                     status = 2;
-                    statusMessage = "Missing ";
-                    if (drawingType.Contains("PDF") && !hasDrawing(pdfPath))
-                    {
-                        statusMessage += "PDF ";
-                    }
-                    if (drawingType.Contains("DWG") && !hasDrawing(dwgPath))
-                    {
-                        statusMessage += "DWG ";
-                    }
+                    statusMessage += "[PDF MISSING] ";
+                }
+
+                if (drawingType.Contains("DWG") && !hasDrawing(dwgPath))
+                {
+                    status = 2;
+                    statusMessage += "[DWG MISSING] ";
                 }
                 
             }
             else
             {
                 status = 3;
-                statusMessage = "[Not set]";
+                statusMessage = "[NOT SET] ";
 
-                if (drawingType == "PDF" && hasDrawing(pdfPath))
+                if (drawingType.Contains("PDF") && hasDrawing(pdfPath))
                 {
                     status = 4;
-                    statusMessage += " Found PDF";
+                    statusMessage += "[PDF FOUND] ";
                 }
 
-                if (drawingType == "DWG" && hasDrawing(dwgPath))
+                if (drawingType.Contains("DWG") && hasDrawing(dwgPath))
                 {
                     status = 4;
-                    statusMessage += " Found DWG";
-                }
-
-                if (drawingType == "PDF_DWG")
-                {
-                    if (hasDrawing(pdfPath))
-                    {
-                        status = 4;
-                        statusMessage += " Found PDF";
-                    }
-                    if (hasDrawing(dwgPath))
-                    {
-                        status = 4;
-                        statusMessage += " Found DWG";
-                    }
+                    statusMessage += "[DWG FOUND] ";
                 }
             }
         }
 
-        public void setPDF(string path)
+        public void setDrawing(string path)
         {
-            if (String.IsNullOrEmpty(pdfPath))
+            if (Path.GetExtension(path) == ".pdf")
             {
-                pdfPath = path;
+                pdfPath = findNewerPath(path, pdfPath);
             }
-            else
+            else if (Path.GetExtension(path) == ".dwg")
             {
-                DateTime currentPath = File.GetCreationTime(pdfPath);
-                DateTime newPath = File.GetCreationTime(path);
+                dwgPath = findNewerPath(path, dwgPath);
+            }
 
-                if (newPath > currentPath)
-                {
-                    pdfPath = path;
-                }
-            }
         }
 
-        public void setDWG(string path)
+        public string findNewerPath(string newPath, string oldPath)
         {
-            if (String.IsNullOrEmpty(dwgPath))
+            if (String.IsNullOrEmpty(oldPath))
             {
-                dwgPath = path;
+                return newPath;
             }
             else
             {
-                DateTime currentPath = File.GetCreationTime(dwgPath);
-                DateTime newPath = File.GetCreationTime(path);
+                DateTime oldTime = File.GetCreationTime(oldPath);
+                DateTime newTime = File.GetCreationTime(newPath);
 
-                if (newPath > currentPath)
+                if (newTime > oldTime)
                 {
-                    dwgPath = path;
+                    return newPath;
+                }
+                else
+                {
+                    return oldPath;
                 }
             }
         }

@@ -16,8 +16,10 @@ namespace checkCSV
         public List<ElementData> allParts;
 
         public List<ArrayList> _raw;
-        public List<string> _pdf;
-        public List<string> _dwg;
+        public List<string> _pdfNotFound;
+        public List<string> _pdfFound;
+        public List<string> _dwgNotFound;
+        public List<string> _dwgFound;
 
         public ElementDataGroup(List<ArrayList> raw, List<string> pdf, List<string> dwg)
         {
@@ -26,8 +28,10 @@ namespace checkCSV
             allParts = new List<ElementData>();
 
             _raw = raw;
-            _pdf = pdf;
-            _dwg = dwg;
+            _pdfNotFound = pdf;
+            _pdfFound = new List<string>();
+            _dwgNotFound = dwg;
+            _dwgFound = new List<string>();
         }
 
         public ElementDataGroup()
@@ -37,8 +41,10 @@ namespace checkCSV
             allParts = new List<ElementData>();
 
             _raw = new List<ArrayList>();
-            _pdf = new List<string>();
-            _dwg = new List<string>();
+            _pdfNotFound = new List<string>();
+            _pdfFound = new List<string>();
+            _dwgNotFound = new List<string>();
+            _dwgFound = new List<string>();
         }
 
         public void buildData()
@@ -54,21 +60,21 @@ namespace checkCSV
                 else
                 {
                     ElementData part;
-                    bool found = false;
+                    bool knownSpecialPart = false;
 
                     foreach (ElementData spec in this.allSpecialParts)
                     {
-                        if (spec.name == (string)element[1])
+                        if (spec.name == (string)element[1]) // dublicate special part
                         {
-                            part = spec; // known special part
+                            part = spec;
                             part.addMainPart(this.allMainParts[this.allMainParts.Count - 1]); //add main part to special parts sublist
                             this.allMainParts[this.allMainParts.Count - 1].addSpecialDetail(part); //add special part to main parts sublist
-                            found = true;
+                            knownSpecialPart = true;
                             break;
                         }
                     }
 
-                    if (found == false)
+                    if (knownSpecialPart == false) // dublicate special part
                     {
                         part = new ElementData((string)element[1], (string)element[2], (string)element[3]);
                         this.allSpecialParts.Add(part); //add new special part
@@ -76,7 +82,17 @@ namespace checkCSV
                         this.allMainParts[this.allMainParts.Count - 1].addSpecialDetail(part); //add special part to main parts sublist
 
                         this.allParts.Add(part); // add special part to "all" list
+                    }
+                }
+            }
 
+            foreach (ElementData main in allMainParts)
+            {
+                if (main.set == true)
+                {
+                    foreach (ElementData special in main.specialDetails)
+                    {
+                        special.set = true;
                     }
                 }
             }
@@ -86,20 +102,12 @@ namespace checkCSV
         {
             foreach (ElementData main in allMainParts)
             {
-                setStatusLogic(main, drawingType);
-
-                if (main.set == true)
-                {
-                    foreach (ElementData special in main.specialDetails)
-                    {
-                        special.set = true;
-                    }
-                }
+                findDrawingLogic(main, drawingType);
             }
 
             foreach (ElementData special in allSpecialParts)
             {
-                setStatusLogic(special, drawingType);
+                findDrawingLogic(special, drawingType);
             }
 
             foreach (ElementData part in allParts)
@@ -108,31 +116,53 @@ namespace checkCSV
             }
         }
 
-        public void setStatusLogic(ElementData part, string drawingType)
+        public void findDrawingLogic(ElementData part, string drawingType)
         {
             if (drawingType.Contains("PDF"))
             {
-                for (int i = _pdf.Count - 1; i >= 0; i--)
+                bool found = findDrawingLoopLogic(part, ref _pdfNotFound, ref _pdfFound);
+                if (found == false)
                 {
-                    if (part.fullName == Path.GetFileNameWithoutExtension(_pdf[i]))
+                    List<String> empty = new List<string>();
+                    bool foundCopy = findDrawingLoopLogic(part, ref _pdfFound, ref empty);
+                    if (foundCopy == true)
                     {
-                        part.setPDF(_pdf[i]);
-                        _pdf.RemoveAt(i);
+                        part.hasCopy = true;
                     }
                 }
             }
-
             if (drawingType.Contains("DWG"))
             {
-                for (int i = _dwg.Count - 1; i >= 0; i--)
+                bool found = findDrawingLoopLogic(part, ref _dwgNotFound, ref _dwgFound);
+                if (found == false)
                 {
-                    if (part.fullName == Path.GetFileNameWithoutExtension(_dwg[i]))
+                    List<String> empty = new List<string>();
+                    bool foundCopy = findDrawingLoopLogic(part, ref _dwgFound, ref empty);
+                    if (foundCopy == true)
                     {
-                        part.setDWG(_dwg[i]);
-                        _dwg.RemoveAt(i);
+                        part.hasCopy = true;
                     }
                 }
             }
         }
+
+        public bool findDrawingLoopLogic(ElementData part, ref List<string> NotFound, ref List<string> Found)
+        {
+            for (int i = NotFound.Count - 1; i >= 0; i--)
+            {
+                if (part.fullName == Path.GetFileNameWithoutExtension(NotFound[i]))
+                {
+                    string drawing = NotFound[i];
+                    part.setDrawing(drawing);
+                    Found.Add(drawing);
+                    NotFound.RemoveAt(i);
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
-} 
+}
+;

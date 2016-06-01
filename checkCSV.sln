@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkConcrete", "checkCSV\c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkGA", "checkGA\checkGA.csproj", "{A22F111F-A514-4DDD-8C45-2ED4E5652430}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkConcreteTests", "checkConcreteTests\checkConcreteTests.csproj", "{97F0C6EF-E685-427F-8E79-DC30FC8FE7E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A22F111F-A514-4DDD-8C45-2ED4E5652430}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A22F111F-A514-4DDD-8C45-2ED4E5652430}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A22F111F-A514-4DDD-8C45-2ED4E5652430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97F0C6EF-E685-427F-8E79-DC30FC8FE7E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97F0C6EF-E685-427F-8E79-DC30FC8FE7E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97F0C6EF-E685-427F-8E79-DC30FC8FE7E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97F0C6EF-E685-427F-8E79-DC30FC8FE7E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
