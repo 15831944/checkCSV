@@ -15,3 +15,4 @@ C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkConcret
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.exe
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkCSV.pdb
 C:\Users\Alex\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkConcrete.csprojResolveAssemblyReference.cache
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Debug\checkConcrete.csprojResolveAssemblyReference.cache

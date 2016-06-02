@@ -30,6 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tab_results = new System.Windows.Forms.TabPage();
+            this.lb_status_6 = new System.Windows.Forms.Label();
+            this.lb_status_5 = new System.Windows.Forms.Label();
             this.lb_status_4 = new System.Windows.Forms.Label();
             this.lb_status_3 = new System.Windows.Forms.Label();
             this.lb_status_2 = new System.Windows.Forms.Label();
@@ -80,8 +82,6 @@
             this.lbl_default_csv_directory = new System.Windows.Forms.Label();
             this.txt_default_pdf_dir = new System.Windows.Forms.TextBox();
             this.txt_default_csv_dir = new System.Windows.Forms.TextBox();
-            this.lb_status_5 = new System.Windows.Forms.Label();
-            this.lb_status_6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tab_results.SuspendLayout();
             this.tab_folder.SuspendLayout();
@@ -103,7 +103,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(664, 761);
+            this.tabControl1.Size = new System.Drawing.Size(684, 761);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
@@ -129,10 +129,30 @@
             this.tab_results.Location = new System.Drawing.Point(4, 22);
             this.tab_results.Name = "tab_results";
             this.tab_results.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_results.Size = new System.Drawing.Size(656, 735);
+            this.tab_results.Size = new System.Drawing.Size(676, 735);
             this.tab_results.TabIndex = 2;
             this.tab_results.Text = "Results";
             this.tab_results.UseVisualStyleBackColor = true;
+            // 
+            // lb_status_6
+            // 
+            this.lb_status_6.AutoSize = true;
+            this.lb_status_6.BackColor = System.Drawing.Color.Pink;
+            this.lb_status_6.Location = new System.Drawing.Point(534, 140);
+            this.lb_status_6.Name = "lb_status_6";
+            this.lb_status_6.Size = new System.Drawing.Size(82, 13);
+            this.lb_status_6.TabIndex = 24;
+            this.lb_status_6.Text = "Not in list: (xxxx)";
+            // 
+            // lb_status_5
+            // 
+            this.lb_status_5.AutoSize = true;
+            this.lb_status_5.BackColor = System.Drawing.Color.Gold;
+            this.lb_status_5.Location = new System.Drawing.Point(443, 140);
+            this.lb_status_5.Name = "lb_status_5";
+            this.lb_status_5.Size = new System.Drawing.Size(85, 13);
+            this.lb_status_5.TabIndex = 23;
+            this.lb_status_5.Text = "Has Copy: (xxxx)";
             // 
             // lb_status_4
             // 
@@ -690,31 +710,11 @@
             this.txt_default_csv_dir.TabIndex = 0;
             this.txt_default_csv_dir.TextChanged += new System.EventHandler(this.txt_default_csv_directory_TextChanged);
             // 
-            // lb_status_5
-            // 
-            this.lb_status_5.AutoSize = true;
-            this.lb_status_5.BackColor = System.Drawing.Color.Gold;
-            this.lb_status_5.Location = new System.Drawing.Point(443, 140);
-            this.lb_status_5.Name = "lb_status_5";
-            this.lb_status_5.Size = new System.Drawing.Size(85, 13);
-            this.lb_status_5.TabIndex = 23;
-            this.lb_status_5.Text = "Has Copy: (xxxx)";
-            // 
-            // lb_status_6
-            // 
-            this.lb_status_6.AutoSize = true;
-            this.lb_status_6.BackColor = System.Drawing.Color.Pink;
-            this.lb_status_6.Location = new System.Drawing.Point(534, 140);
-            this.lb_status_6.Name = "lb_status_6";
-            this.lb_status_6.Size = new System.Drawing.Size(82, 13);
-            this.lb_status_6.TabIndex = 24;
-            this.lb_status_6.Text = "Not in list: (xxxx)";
-            // 
             // Form_checkConcrete
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(664, 761);
+            this.ClientSize = new System.Drawing.Size(684, 761);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
