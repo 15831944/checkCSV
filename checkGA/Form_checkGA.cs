@@ -78,7 +78,7 @@ namespace checkGA
         private void btn_choose_csv_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "EXCEL Files (*.xlsx)|*.xlsx";
+            openFileDialog1.Filter = "EXCEL Files (*.xlsx)|*.xlsx|EXCEL Files (*.xls)|*.xls";
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.Multiselect = false;
 
