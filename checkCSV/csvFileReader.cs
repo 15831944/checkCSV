@@ -91,7 +91,7 @@ namespace checkCSV
                     lineData.Add(true); //is mainPart
                     lineData.Add(fields[2]); //is name
                     lineData.Add(fields[3]); //is revision
-                    lineData.Add(fields[39]); //is hasDrawing
+                    lineData.Add(fields[41]); //is hasDrawing
                 }
                 else if (fields[21] == _incastClass)
                 {

@@ -1,0 +1,9 @@
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\bin\Release\checkGA.exe.config
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\bin\Release\checkGA.exe
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\bin\Release\checkGA.pdb
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.csprojResolveAssemblyReference.cache
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.Form_checkGA.resources
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.Properties.Resources.resources
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.csproj.GenerateResource.Cache
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.exe
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.pdb
