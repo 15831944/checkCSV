@@ -237,6 +237,7 @@
             this.lv_csv_results.TabIndex = 17;
             this.lv_csv_results.UseCompatibleStateImageBehavior = false;
             this.lv_csv_results.View = System.Windows.Forms.View.Details;
+            this.lv_csv_results.SelectedIndexChanged += new System.EventHandler(this.lv_csv_results_SelectedIndexChanged);
             // 
             // cb_include_revision
             // 

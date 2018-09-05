@@ -7,3 +7,5 @@ C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.Pro
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.csproj.GenerateResource.Cache
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.exe
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.pdb
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.csprojAssemblyReference.cache
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkGA\obj\Release\checkGA.csproj.CoreCompileInputs.cache

@@ -235,5 +235,10 @@ namespace checkGA
             lb_status_1.Text = @"OK: (" + _reportData._allDrawings.Where(x => x.status == 1).ToList().Count.ToString() + @")";
             lb_status_2.Text = @"Missing: (" + _reportData._allDrawings.Where(x => x.status == 2).ToList().Count.ToString() + @")";
         }
+
+        private void lv_csv_results_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
