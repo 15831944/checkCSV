@@ -33,7 +33,7 @@ namespace checkCSV
             if (rev.Length > 0) fullName = fullName + "_Rev" + rev;
 
             set = false;
-            if (hasDrawing == "1") set = true;
+            if (hasDrawing == "2") set = true;
         }
 
         public ElementData(string path)

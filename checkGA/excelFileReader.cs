@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Windows.Forms;
-using Excel;
+using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 
 using System.IO;
@@ -36,7 +36,7 @@ namespace checkGA
 
             try
             {
-                Excel.Application _excelApp = new Excel.Application();
+                Microsoft.Office.Interop.Excel.Application _excelApp = new Microsoft.Office.Interop.Excel.Application();
 
                 Workbook workBook = _excelApp.Workbooks.Open(_xlsxPath,
                     Type.Missing, Type.Missing, Type.Missing, Type.Missing,
@@ -100,12 +100,12 @@ namespace checkGA
         {
             ArrayList lineData = new ArrayList();
 
-            string name = (sheet.Cells[i, _nameRow] as Excel.Range).Value as string;
+            string name = (sheet.Cells[i, _nameRow] as Microsoft.Office.Interop.Excel.Range).Value as string;
             string rev = "";
 
             if (_includeRevision)
             {
-                rev = (sheet.Cells[i, _revisionRow] as Excel.Range).Value as string;
+                rev = (sheet.Cells[i, _revisionRow] as Microsoft.Office.Interop.Excel.Range).Value as string;
             }
 
             if (String.IsNullOrEmpty(name) && String.IsNullOrEmpty(rev))

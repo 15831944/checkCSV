@@ -1,9 +1,10 @@
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\bin\Release\checkCSV.exe.config
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\bin\Release\checkCSV.exe
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\bin\Release\checkCSV.pdb
-C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Release\checkConcrete.csprojResolveAssemblyReference.cache
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Release\checkCSV.Form_checkConcrete.resources
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Release\checkCSV.Properties.Resources.resources
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Release\checkConcrete.csproj.GenerateResource.Cache
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Release\checkCSV.exe
 C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Release\checkCSV.pdb
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Release\checkConcrete.csprojAssemblyReference.cache
+C:\Users\aleksandr.ess\Documents\GitHub\checkCSV\checkCSV\obj\Release\checkConcrete.csproj.CoreCompileInputs.cache

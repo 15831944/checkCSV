@@ -82,21 +82,23 @@ namespace checkCSV
             line = line.Replace(" ", "");
             string[] fields = line.Split(';');
 
+           // MessageBox.Show(fields.Count().ToString() + " - " + fields[6] + " - " + fields[66]);
+
             if (line != String.Empty && fields.Count() >= 21)
             {
                 int dummy;
 
-                if (int.TryParse(fields[5], out dummy))
+                if (int.TryParse(fields[32], out dummy))
                 {
                     lineData.Add(true); //is mainPart
-                    lineData.Add(fields[2]); //is name
-                    lineData.Add(fields[3]); //is revision
-                    lineData.Add(fields[41]); //is hasDrawing
+                    lineData.Add(fields[3]); //is name
+                    lineData.Add(fields[4]); //is revision
+                    lineData.Add(fields[66]); //is hasDrawing
                 }
-                else if (fields[21] == _incastClass)
+                else if (fields[33] == _incastClass)
                 {
                     lineData.Add(false); //is mainPart
-                    lineData.Add(fields[22]); //is name
+                    lineData.Add(fields[34]); //is name
                     lineData.Add(""); //is revision
                     lineData.Add(""); //is hasDrawing
                 }
